@@ -6,7 +6,7 @@ dotenv.config();
 const app = express();
 
 //db
-
+import connectDB from "./db/db.js";
 //routes
 import UserRouter from "./routes/userRoutes.js";
 
@@ -26,12 +26,9 @@ app.use(errorHandler);
 const port = process.env.PORT || 5000;
 
 const start = async () => {
-  try {
-    app.listen(port, () => {
-      console.log(`Server is listening on port ${port}...`);
-    });
-  } catch (error) {
-    console.log(err);
-  }
+  await connectDB(process.env.MONGO_URL);
+  app.listen(port, () => {
+    console.log(`Server is listening on port ${port}...`);
+  });
 };
 start();
