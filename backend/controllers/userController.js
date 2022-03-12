@@ -7,10 +7,21 @@ const register = async (req, res) => {
     throw new Error("please provide all data");
   }
   const user = await User.create({ name, email, password });
-  res.status(201).json({ user });
+  const token = user.createJWT();
+  res
+    .status(201)
+    .json({
+      user: { name: user.name, email: user.email, cart: user.cart },
+      token,
+    });
 };
 
 const login = (req, res) => {
   res.status(200).json({ msg: "User is logged in" });
 };
-export { register, login };
+
+const getCart = (req, res) => {
+  res.status(200).json({ msg: "getcart" });
+};
+
+export { register, login, getCart };
