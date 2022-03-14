@@ -1,7 +1,7 @@
 import FormRow from "../components/FormRow";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../context/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const initialState = {
   name: "",
   email: "",
@@ -11,8 +11,9 @@ const initialState = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState(initialState);
-  const { isLoading, registerUser } = useAppContext();
+  const { user, isLoading, registerUser, loginUser } = useAppContext();
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
@@ -29,23 +30,30 @@ const Register = () => {
       console.log("provide all values to register");
       return;
     }
+    const currentUser = { name, email, password };
     if (isMember) {
-      console.log("already a user pls login");
+      loginUser(currentUser);
     } else {
       if (password !== confirmPassword) {
         console.log("passwords does not match");
         return;
       }
-      const currentUser = { name, email, password };
+
       registerUser(currentUser);
     }
-
-    console.log(state);
   };
 
   const handleMember = () => {
     setState({ ...state, isMember: !state.isMember });
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [user, navigate]);
 
   return (
     <>
