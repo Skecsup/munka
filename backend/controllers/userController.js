@@ -16,7 +16,12 @@ const register = async (req, res) => {
   const token = user.createJWT();
 
   res.status(201).json({
-    user: { name: user.name, email: user.email, cart: user.cart },
+    user: {
+      name: user.name,
+      email: user.email,
+      cart: user.cart,
+      role: user.role,
+    },
     token,
   });
 };
@@ -38,7 +43,10 @@ const login = async (req, res) => {
 
   const token = user.createJWT();
   user.password = undefined;
-  res.status(200).json({ user, token });
+  res.status(200).json({
+    user,
+    token,
+  });
 };
 
 const getCart = (req, res) => {

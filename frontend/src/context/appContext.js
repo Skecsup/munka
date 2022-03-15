@@ -14,8 +14,8 @@ import {
 
 const initialState = {
   isLoading: false,
-  user: null,
-  token: null,
+  user: localStorage.user || null,
+  token: localStorage.token || null,
 };
 
 const AppContext = React.createContext();
@@ -23,7 +23,7 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addUserToLocalStorage = ({ user, token, location }) => {
+  const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
   };

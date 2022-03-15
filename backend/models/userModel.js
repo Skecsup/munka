@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema(
       minlength: 6,
       select: false,
     },
+    role: {
+      type: Number,
+      default: 0,
+    },
     cart: {
       type: Array,
       default: [],

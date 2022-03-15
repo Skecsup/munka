@@ -1,23 +1,30 @@
 import FormRow from "../components/FormRow";
+import Logo from "../components/Logo";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../context/appContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Container } from "../assets/styles/Register_Style";
+
 const initialState = {
   name: "",
   email: "",
   password: "",
   confirmPassword: "",
   isMember: false,
+  role: true,
 };
 
 const Register = () => {
   const navigate = useNavigate();
   const [state, setState] = useState(initialState);
   const { user, isLoading, registerUser, loginUser } = useAppContext();
+
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-
+  const handleMember = () => {
+    setState({ ...state, isMember: !state.isMember });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, confirmPassword, isMember } = state;
@@ -26,6 +33,7 @@ const Register = () => {
       console.log("provide all values to login");
       return;
     }
+
     if (!isMember && (!name || !email || !password || !confirmPassword)) {
       console.log("provide all values to register");
       return;
@@ -43,10 +51,6 @@ const Register = () => {
     }
   };
 
-  const handleMember = () => {
-    setState({ ...state, isMember: !state.isMember });
-  };
-
   useEffect(() => {
     if (user) {
       setTimeout(() => {
@@ -56,14 +60,9 @@ const Register = () => {
   }, [user, navigate]);
 
   return (
-    <>
-      <nav>
-        <Link to="/">home</Link>
-        <Link to="/about">about</Link>
-        <Link to="/shop">shop</Link>
-        <Link to="/register">register</Link>
-      </nav>
-      <div>
+    <Container>
+      <div className="wrapper">
+        <Logo className="logo" />
         <form onSubmit={handleSubmit}>
           <h3>{state.isMember ? "Login" : "Register"}</h3>
           {!state.isMember && (
@@ -95,18 +94,18 @@ const Register = () => {
               labelText="Re-Enter Password"
             />
           )}
-          <button disabled={isLoading}>
+          <button type="submit" className="submit" disabled={isLoading}>
             {state.isMember ? "Login" : "Register"}
           </button>
           <p>
             {!state.isMember ? "Already a member?" : "Not a member?"}
-            <button type="button" onClick={handleMember}>
+            <button type="button" className="change" onClick={handleMember}>
               {!state.isMember ? "Login" : "Register"}
             </button>
           </p>
         </form>
       </div>
-    </>
+    </Container>
   );
 };
 

@@ -1,7 +1,11 @@
-import React from "react";
-
+import { Link } from "react-router-dom";
 const Error = () => {
-  return <div>Error page</div>;
+  return (
+    <>
+      <h1>Error page</h1>
+      <Link to="/">back home</Link>
+    </>
+  );
 };
 
 export default Error;
