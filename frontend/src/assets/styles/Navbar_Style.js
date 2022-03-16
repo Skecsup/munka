@@ -30,11 +30,17 @@ export const Container = styled.div`
       color: #56417f;
     }
   }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
   .register {
     color: white !important;
     background-color: #997cd6;
     border: 1px solid #997cd6;
-    padding: 10px 50px;
+    padding: 10px 40px;
     border-radius: 30px;
     &:hover {
       background-color: #56417f;
@@ -59,6 +65,33 @@ export const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   position: relative;
+
+  .cart-size {
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    font-weight: 900;
+    background-color: red;
+    top: 10px;
+    left: 260px;
+    padding: 5px 8px;
+    border-radius: 50%;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 80px;
+    left: 303px;
+    width: 30%;
+    background: #997cd6;
+    padding: 0.5rem;
+    text-align: center;
+    visibility: hidden;
+    border-radius: 20px;
+  }
+  .show-dropdown {
+    visibility: visible;
+  }
 
   @media (max-width: 768px) {
     overflow: hidden;
