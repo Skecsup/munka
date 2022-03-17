@@ -10,8 +10,10 @@ import {
   LOGIN_USER_START,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  LOGOUT_USER,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
+  CHANGE_PRODUCT_AMOUNT,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -49,8 +51,8 @@ const initialState = {
     {
       id: 4,
       name: "Vodor",
-      desc: "nagyon kiraly kis vodor",
-      kep: "https://i.ibb.co/cQ5JQ9d/1200px-Re-Horakhty-svg.png",
+      desc: "nagyon kiraly kis vodor ez itten kldjsakldj lkj daskdjaslasdlask  k sjdaklsdjaskljjkj ad ajsklasdj",
+      kep: "https://webimg.praktiker.hu/_upload/images/praktiker_catalog/186572/186572_01_vodor-14l-horganyzott.png",
       price: 5,
       count: 1,
     },
@@ -117,6 +119,10 @@ const AppProvider = ({ children }) => {
       });
     }
   };
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
 
   const addProductToCart = (product) => {
     dispatch({ type: ADD_PRODUCT_TO_CART, payload: { product } });
@@ -124,13 +130,18 @@ const AppProvider = ({ children }) => {
   const removeProductFromCart = (id) => {
     dispatch({ type: REMOVE_PRODUCT_FROM_CART, payload: { id } });
   };
+  const changeProductAmount = (event, id) => {
+    dispatch({ type: CHANGE_PRODUCT_AMOUNT, payload: { event, id } });
+  };
 
   const context = {
     ...state,
     registerUser,
     loginUser,
+    logoutUser,
     addProductToCart,
     removeProductFromCart,
+    changeProductAmount,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

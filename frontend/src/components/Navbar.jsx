@@ -12,11 +12,17 @@ import { useAppContext } from "../context/appContext";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-  const { user, cart } = useAppContext();
+  const { user, cart, logoutUser } = useAppContext();
   const navigate = useNavigate();
 
+  let cartAmount = 0;
+  cart.forEach((i) => {
+    cartAmount += i.count;
+  });
+
   const logout = () => {
-    console.log("buttonclikc");
+    logoutUser();
+    setShowLogout(false);
   };
 
   const showdropdown = () => {
@@ -48,7 +54,7 @@ const Navbar = () => {
           <NavLink className="nav-link" to="/cart">
             <FaShoppingCart />
             {cart.length !== 0 && (
-              <span className="cart-size">{cart.length}</span>
+              <span className="cart-size">{cartAmount}</span>
             )}
           </NavLink>
 

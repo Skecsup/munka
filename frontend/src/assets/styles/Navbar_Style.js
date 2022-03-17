@@ -76,6 +76,10 @@ export const Nav = styled.nav`
     left: 260px;
     padding: 5px 8px;
     border-radius: 50%;
+    @media (max-width: 768px) {
+      top: 150px;
+      left: 380px;
+    }
   }
 
   .dropdown {
@@ -88,6 +92,10 @@ export const Nav = styled.nav`
     text-align: center;
     visibility: hidden;
     border-radius: 20px;
+    @media (max-width: 768px) {
+      top: 215px;
+      left: 10px;
+    }
   }
   .show-dropdown {
     visibility: visible;

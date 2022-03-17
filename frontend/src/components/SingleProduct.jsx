@@ -17,7 +17,7 @@ const SingleProduct = ({ product }) => {
       <h1>{product.name}</h1>
       <p>{product.desc}</p>
       <img src={product.kep} alt={product.id} />
-      <p>{product.price}$</p>
+      <strong>{product.price}€</strong>
       <button onClick={carthandler}>
         {cart.some((p) => p.id === product.id)
           ? "Remove from cart"
