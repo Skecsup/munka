@@ -49,8 +49,28 @@ const login = async (req, res) => {
   });
 };
 
+const update = async (req, res) => {
+  const { email, name, address, city, zip } = req.body;
+  if (!email || !name || !address || !city || !zip) {
+    throw new BadRequestError("Please provide all values");
+  }
+  const user = await User.findOne({ _id: req.user.userId });
+
+  user.email = email;
+  user.name = name;
+  user.address = address;
+  user.city = city;
+  user.zip = zip;
+
+  await user.save();
+
+  const token = user.createJWT();
+
+  res.status(200).json({ user, token });
+};
+
 const getCart = (req, res) => {
   res.status(200).json({ msg: "getcart" });
 };
 
-export { register, login, getCart };
+export { register, login, update, getCart };

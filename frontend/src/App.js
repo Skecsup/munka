@@ -1,4 +1,13 @@
-import { Register, Shop, About, Home, Error, Cart } from "./pages";
+import {
+  Register,
+  Shop,
+  About,
+  Home,
+  Error,
+  Cart,
+  Profile,
+  ProtectedRoute,
+} from "./pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
@@ -13,6 +22,15 @@ function App() {
             <Route path="shop" element={<Shop />} />
             <Route path="cart" element={<Cart />} />
             <Route path="register" element={<Register />} />
+
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
           </Route>
           <Route path="*" element={<Error />} />
         </Routes>

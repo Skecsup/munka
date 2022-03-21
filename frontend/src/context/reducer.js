@@ -6,6 +6,9 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   LOGOUT_USER,
+  UPDATE_USER_START,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
@@ -49,6 +52,19 @@ const reducer = (state, action) => {
         user: null,
         token: null,
       };
+    case UPDATE_USER_START:
+      return { ...state, isLoading: true };
+
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        token: action.payload.token,
+        user: action.payload.user,
+      };
+
+    case UPDATE_USER_ERROR:
+      return { ...state, isLoading: false };
 
     case ADD_PRODUCT_TO_CART:
       return { ...state, cart: state.cart.concat(action.payload.product) };

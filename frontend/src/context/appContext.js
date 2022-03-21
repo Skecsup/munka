@@ -11,6 +11,9 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   LOGOUT_USER,
+  UPDATE_USER_START,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
@@ -124,6 +127,28 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
+  const updateUser = async (currentUser) => {
+    dispatch({ type: UPDATE_USER_START });
+    try {
+      const response = await axios.patch("/api/user/update", currentUser);
+      console.log(response);
+      const { user, token } = response.data;
+
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { user, token },
+      });
+      addUserToLocalStorage({ user, token });
+    } catch (error) {
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
+    }
+  };
+
   const addProductToCart = (product) => {
     dispatch({ type: ADD_PRODUCT_TO_CART, payload: { product } });
   };
@@ -139,6 +164,7 @@ const AppProvider = ({ children }) => {
     registerUser,
     loginUser,
     logoutUser,
+    updateUser,
     addProductToCart,
     removeProductFromCart,
     changeProductAmount,

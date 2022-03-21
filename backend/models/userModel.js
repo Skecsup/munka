@@ -20,6 +20,18 @@ const userSchema = mongoose.Schema(
       minlength: 6,
       select: false,
     },
+    address: {
+      type: String,
+      default: "",
+    },
+    city: {
+      type: String,
+      default: "",
+    },
+    zip: {
+      type: String,
+      default: "",
+    },
     role: {
       type: Number,
       default: 0,
@@ -33,8 +45,8 @@ const userSchema = mongoose.Schema(
 );
 
 userSchema.pre("save", async function () {
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt);
+  // const salt = await bcrypt.genSalt();
+  // this.password = await bcrypt.hash(this.password, salt);
 });
 
 userSchema.methods.createJWT = function () {

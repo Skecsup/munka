@@ -2,17 +2,12 @@ import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { Container, Nav } from "../assets/styles/Navbar_Style";
-import {
-  FaShoppingCart,
-  FaBars,
-  FaUserCircle,
-  FaCaretDown,
-} from "react-icons/fa";
+import { FaShoppingCart, FaBars, FaUserCircle } from "react-icons/fa";
 import { useAppContext } from "../context/appContext";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showLogout, setShowLogout] = useState(false);
-  const { user, cart, logoutUser } = useAppContext();
+
+  const { user, cart } = useAppContext();
   const navigate = useNavigate();
 
   let cartAmount = 0;
@@ -20,14 +15,9 @@ const Navbar = () => {
     cartAmount += i.count;
   });
 
-  const logout = () => {
-    logoutUser();
-    setShowLogout(false);
-  };
-
-  const showdropdown = () => {
+  const toProfile = () => {
     if (user) {
-      setShowLogout(!showLogout);
+      navigate("/profile");
     } else {
       navigate("/register");
     }
@@ -58,15 +48,9 @@ const Navbar = () => {
             )}
           </NavLink>
 
-          <button className="nav-link register" onClick={showdropdown}>
+          <button className="nav-link register" onClick={toProfile}>
             {user ? <FaUserCircle /> : ""} {user ? user.name : "Sign in"}
-            {user ? <FaCaretDown /> : ""}
           </button>
-          <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
-            <button type="button" className="dropdown-btn" onClick={logout}>
-              Logout
-            </button>
-          </div>
         </Nav>
       </Container>
       <Outlet />
