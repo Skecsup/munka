@@ -24,7 +24,7 @@ export const SideBar = styled.div`
     font-size: 20px;
     width: 80%;
     padding: 10px;
-    background-color: lightblue;
+    background-color: #997cd6;
     border: 1px solid #aaa;
     cursor: pointer;
   }

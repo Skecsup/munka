@@ -5,8 +5,8 @@ const SingleProduct = ({ product }) => {
   const { addProductToCart, cart, removeProductFromCart } = useAppContext();
 
   const carthandler = () => {
-    if (cart.some((p) => p.id === product.id)) {
-      removeProductFromCart(product.id);
+    if (cart.some((p) => p._id === product._id)) {
+      removeProductFromCart(product._id);
     } else {
       addProductToCart(product);
     }
@@ -16,10 +16,10 @@ const SingleProduct = ({ product }) => {
     <Container>
       <h1>{product.name}</h1>
       <p>{product.desc}</p>
-      <img src={product.kep} alt={product.id} />
+      <img src={product.image} alt={product._id} />
       <strong>{product.price}€</strong>
       <button onClick={carthandler}>
-        {cart.some((p) => p.id === product.id)
+        {cart.some((p) => p._id === product._id)
           ? "Remove from cart"
           : "Add to cart"}
       </button>

@@ -1,19 +1,12 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useEffect } from "react";
 import axios from "axios";
 
 import reducer from "./reducer";
 
 import {
-  REGISTER_USER_START,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
-  LOGIN_USER_START,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_ERROR,
+  FETCH_DATA,
+  SETUP_USER,
   LOGOUT_USER,
-  UPDATE_USER_START,
-  UPDATE_USER_SUCCESS,
-  UPDATE_USER_ERROR,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
@@ -23,43 +16,9 @@ const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
 
 const initialState = {
-  isLoading: false,
   user: user ? JSON.parse(user) : null,
   token: token || null,
-  products: [
-    {
-      id: 1,
-      name: "Traktor",
-      desc: "Nagyon fain Traktor",
-      kep: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Massey_Ferguson_6490_Dynashift.jpg/1200px-Massey_Ferguson_6490_Dynashift.jpg",
-      price: 10,
-      count: 1,
-    },
-    {
-      id: 2,
-      name: "Kamion",
-      desc: "Nagyon fain Kamion",
-      kep: "https://www.manoriginal.sk/wp-content/uploads/2018/12/Viano%C4%8Dn%C3%BD-truck-MAN.jpg",
-      price: 15,
-      count: 1,
-    },
-    {
-      id: 3,
-      name: "Tricikli",
-      desc: "Nagyon fain Tricikli",
-      kep: "https://manobabahaz.hu/kepek/05709_2.jpg",
-      price: 20,
-      count: 1,
-    },
-    {
-      id: 4,
-      name: "Vodor",
-      desc: "nagyon kiraly kis vodor ez itten kldjsakldj lkj daskdjaslasdlask  k sjdaklsdjaskljjkj ad ajsklasdj",
-      kep: "https://webimg.praktiker.hu/_upload/images/praktiker_catalog/186572/186572_01_vodor-14l-horganyzott.png",
-      price: 5,
-      count: 1,
-    },
-  ],
+  products: [],
   cart: [],
 };
 
@@ -67,6 +26,15 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get("/api/products");
+
+      const prod = data.products;
+      dispatch({ type: FETCH_DATA, payload: { prod } });
+    };
+    fetchData();
+  }, []);
 
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -79,13 +47,12 @@ const AppProvider = ({ children }) => {
   };
 
   const registerUser = async (currentUser) => {
-    dispatch({ type: REGISTER_USER_START });
     try {
       const response = await axios.post("/api/user/register", currentUser);
       console.log(response);
       const { user, token } = response.data;
       dispatch({
-        type: REGISTER_USER_SUCCESS,
+        type: SETUP_USER,
         payload: {
           user,
           token,
@@ -94,21 +61,16 @@ const AppProvider = ({ children }) => {
       addUserToLocalStorage({ user, token });
     } catch (error) {
       console.log(error.response);
-      dispatch({
-        type: REGISTER_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
     }
   };
 
   const loginUser = async (currentUser) => {
-    dispatch({ type: LOGIN_USER_START });
     try {
       const { data } = await axios.post("/api/user/login", currentUser);
 
       const { user, token } = data;
       dispatch({
-        type: LOGIN_USER_SUCCESS,
+        type: SETUP_USER,
         payload: {
           user,
           token,
@@ -116,10 +78,7 @@ const AppProvider = ({ children }) => {
       });
       addUserToLocalStorage({ user, token });
     } catch (error) {
-      dispatch({
-        type: LOGIN_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
+      console.log(error);
     }
   };
   const logoutUser = () => {
@@ -128,35 +87,32 @@ const AppProvider = ({ children }) => {
   };
 
   const updateUser = async (currentUser) => {
-    dispatch({ type: UPDATE_USER_START });
     try {
-      const response = await axios.patch("/api/user/update", currentUser);
-      console.log(response);
-      const { user, token } = response.data;
+      const { data } = await axios.patch("/api/user/update", currentUser, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
+      const { user, token } = data;
 
       dispatch({
-        type: UPDATE_USER_SUCCESS,
+        type: SETUP_USER,
         payload: { user, token },
       });
       addUserToLocalStorage({ user, token });
     } catch (error) {
-      if (error.response.status !== 401) {
-        dispatch({
-          type: UPDATE_USER_ERROR,
-          payload: { msg: error.response.data.msg },
-        });
-      }
+      console.log(error);
     }
   };
 
   const addProductToCart = (product) => {
     dispatch({ type: ADD_PRODUCT_TO_CART, payload: { product } });
   };
-  const removeProductFromCart = (id) => {
-    dispatch({ type: REMOVE_PRODUCT_FROM_CART, payload: { id } });
+  const removeProductFromCart = (_id) => {
+    dispatch({ type: REMOVE_PRODUCT_FROM_CART, payload: { _id } });
   };
-  const changeProductAmount = (event, id) => {
-    dispatch({ type: CHANGE_PRODUCT_AMOUNT, payload: { event, id } });
+  const changeProductAmount = (event, _id) => {
+    dispatch({ type: CHANGE_PRODUCT_AMOUNT, payload: { event, _id } });
   };
 
   const context = {

@@ -9,6 +9,8 @@ dotenv.config();
 import connectDB from "./db/db.js";
 //routes
 import UserRouter from "./routes/userRoutes.js";
+import ProductsRouter from "./routes/productRoutes.js";
+import SeedRouter from "./routes/seedRoutes.js";
 
 //middleware
 import errorHandler from "./middleware/error-handler.js";
@@ -18,8 +20,9 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.json());
-
+app.use("/api/seed", SeedRouter);
 app.use("/api/user", UserRouter);
+app.use("/api/products", ProductsRouter);
 
 app.use(errorHandler);
 
