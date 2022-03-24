@@ -7,6 +7,8 @@ import {
   Cart,
   Profile,
   ProtectedRoute,
+  Admin,
+  AdminProtectedRoute,
 } from "./pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -21,6 +23,7 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="shop" element={<Shop />} />
             <Route path="cart" element={<Cart />} />
+
             <Route path="register" element={<Register />} />
 
             <Route
@@ -29,6 +32,14 @@ function App() {
                 <ProtectedRoute>
                   <Profile />
                 </ProtectedRoute>
+              }
+            />
+            <Route
+              path="admin"
+              element={
+                <AdminProtectedRoute>
+                  <Admin />
+                </AdminProtectedRoute>
               }
             />
           </Route>

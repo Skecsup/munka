@@ -1,5 +1,6 @@
 import {
   FETCH_DATA,
+  CREATE_PRODUCT,
   SETUP_USER,
   LOGOUT_USER,
   ADD_PRODUCT_TO_CART,
@@ -13,6 +14,11 @@ const reducer = (state, action) => {
   switch (action.type) {
     case FETCH_DATA:
       return { ...state, products: action.payload.prod };
+    case CREATE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.concat(action.payload.product),
+      };
     case SETUP_USER:
       return {
         ...state,

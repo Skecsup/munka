@@ -5,6 +5,7 @@ import reducer from "./reducer";
 
 import {
   FETCH_DATA,
+  CREATE_PRODUCT,
   SETUP_USER,
   LOGOUT_USER,
   ADD_PRODUCT_TO_CART,
@@ -105,6 +106,16 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const createProduct = async (product) => {
+    try {
+      await axios.post("/api/products", product);
+
+      dispatch({ type: CREATE_PRODUCT, payload: { product } });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const addProductToCart = (product) => {
     dispatch({ type: ADD_PRODUCT_TO_CART, payload: { product } });
   };
@@ -124,6 +135,7 @@ const AppProvider = ({ children }) => {
     addProductToCart,
     removeProductFromCart,
     changeProductAmount,
+    createProduct,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

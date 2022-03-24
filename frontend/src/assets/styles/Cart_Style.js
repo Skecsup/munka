@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  //justify-content: space-between;
+  justify-content: space-between;
 `;
 
 export const CartItems = styled.div`
@@ -16,6 +16,7 @@ export const SideBar = styled.div`
   filter: drop-shadow(0 0 0.75rem #aaa);
   width: 20vw;
   margin: 10px 20px;
+  height: 300px;
   button {
     position: fixed;
     bottom: 20px;

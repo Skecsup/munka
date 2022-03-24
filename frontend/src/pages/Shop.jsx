@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Filter from "../components/Filter";
 import SingleProduct from "../components/SingleProduct";
 import { Container, AllProducts } from "../assets/styles/Shop_Style";

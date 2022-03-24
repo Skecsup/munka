@@ -1,4 +1,5 @@
 export const FETCH_DATA = "FETCH_DATA";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
 
 export const REGISTER_USER = "REGISTER_USER";
 export const LOGIN_USER = "LOGIN_USER";
