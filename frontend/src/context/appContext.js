@@ -82,6 +82,7 @@ const AppProvider = ({ children }) => {
       console.log(error);
     }
   };
+
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();

@@ -2,14 +2,16 @@ import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import { useState } from "react";
-import { Wrapper } from "../assets/styles/Profile_Style";
+import { Container } from "../assets/styles/Profile_Style";
 
 const Profile = () => {
   const { user, logoutUser, updateUser } = useAppContext();
 
   const [name, setName] = useState(user?.name);
+  const [lastName, setLastName] = useState(user?.lastName);
   const [email, setEmail] = useState(user?.email);
   const [address, setAddress] = useState(user?.address);
+  const [country, setCountry] = useState(user?.country);
   const [city, setCity] = useState(user?.city);
   const [zip, setZip] = useState(user?.zip);
 
@@ -21,11 +23,11 @@ const Profile = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    updateUser({ name, email, address, city, zip });
+    updateUser({ name, email, address, country, city, zip, lastName });
   };
 
   return (
-    <Wrapper>
+    <Container>
       <h1>Profile</h1>
 
       <form onSubmit={submitHandler}>
@@ -34,6 +36,12 @@ const Profile = () => {
           name="name"
           value={name}
           handleChange={(e) => setName(e.target.value)}
+        />
+        <FormRow
+          type="text"
+          name="lastName"
+          value={lastName}
+          handleChange={(e) => setLastName(e.target.value)}
         />
         <FormRow
           type="email"
@@ -50,6 +58,12 @@ const Profile = () => {
         <div>
           <FormRow
             type="text"
+            name="country"
+            value={country}
+            handleChange={(e) => setCountry(e.target.value)}
+          />
+          <FormRow
+            type="text"
             name="city"
             value={city}
             handleChange={(e) => setCity(e.target.value)}
@@ -64,7 +78,7 @@ const Profile = () => {
         <button type="submit">Submit</button>
       </form>
       <button onClick={logoutHandler}>logout</button>
-    </Wrapper>
+    </Container>
   );
 };
 

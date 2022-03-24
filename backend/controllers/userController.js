@@ -19,7 +19,7 @@ const register = async (req, res) => {
     user: {
       name: user.name,
       email: user.email,
-      cart: user.cart,
+      orders: user.orders,
       role: user.role,
     },
     token,
@@ -50,8 +50,8 @@ const login = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const { email, name, address, city, zip } = req.body;
-  if (!email || !name || !address || !city || !zip) {
+  const { email, name, address, city, zip, lastName, country } = req.body;
+  if (!email || !name || !address || !country || !city || !zip || !lastName) {
     throw new BadRequestError("Please provide all values");
   }
   const user = await User.findOne({ _id: req.user.userId });
@@ -59,8 +59,10 @@ const update = async (req, res) => {
   user.email = email;
   user.name = name;
   user.address = address;
+  user.country = country;
   user.city = city;
   user.zip = zip;
+  user.lastName = lastName;
 
   await user.save();
 
@@ -69,8 +71,8 @@ const update = async (req, res) => {
   res.status(200).json({ user, token });
 };
 
-const getCart = (req, res) => {
-  res.status(200).json({ msg: "getcart" });
+const getOrders = (req, res) => {
+  res.status(200).json({ msg: "orders" });
 };
 
-export { register, login, update, getCart };
+export { register, login, update, getOrders };

@@ -1,11 +1,16 @@
 import { CartItems, Container, SideBar } from "../assets/styles/Cart_Style";
 import SingleCartProduct from "../components/SingleCartProduct";
 import { useAppContext } from "../context/appContext";
+import DeliveryData from "../components/DeliveryData";
+import ShippingPayment from "../components/ShippingPayment";
+import Order from "../components/Order";
 
 import { useState } from "react";
 
 const Cart = () => {
   const [step, setStep] = useState(0);
+  const [payment, setPayment] = useState("");
+  const [ship, setShip] = useState("");
   console.log(step);
 
   const proceedHandler = () => {
@@ -14,13 +19,14 @@ const Cart = () => {
       setStep(0);
     }
   };
-  const { cart, user } = useAppContext();
+  const { cart } = useAppContext();
   let totalPrice = 0;
   let totalItems = 0;
   cart.forEach((i) => {
     totalPrice += i.price * i.count;
     totalItems += i.count;
   });
+
   let cartContent = (
     <CartItems>
       {cart.map((item, index) => {
@@ -28,33 +34,33 @@ const Cart = () => {
       })}
     </CartItems>
   );
-  let billingData = (
-    <div>
-      <form>
-        <input type="text" value={user.name} />
-        <input type="text" value={user.email} />
-        <input type="text" value={user.address} />
-        <input type="text" value={user.city} />
-        <input type="text" value={user.zip} />
-      </form>
-    </div>
+  let billingData = <DeliveryData />;
+
+  let shipping_payment = (
+    <ShippingPayment
+      payment={payment}
+      setPayment={setPayment}
+      ship={ship}
+      setShip={setShip}
+    />
   );
-  let shipping_payment = <div>ship and pay</div>;
-  let order = <div>order</div>;
+  let order = <Order totalPrice={totalPrice} ship={ship} payment={payment} />;
 
   return (
-    <Container>
-      {step === 0 && cartContent}
-      {step === 1 && billingData}
-      {step === 2 && shipping_payment}
-      {step === 3 && order}
+    <>
+      <Container>
+        {step === 0 && cartContent}
+        {step === 1 && billingData}
+        {step === 2 && shipping_payment}
+        {step === 3 && order}
 
-      <SideBar>
-        <h1>Subtotal ({totalItems}) items</h1>
-        <h2>Total: {totalPrice}€</h2>
-        <button onClick={proceedHandler}>Proceed to checkout</button>
-      </SideBar>
-    </Container>
+        <SideBar>
+          <h1>Subtotal ({totalItems}) items</h1>
+          <h2>Total: {totalPrice}€</h2>
+          <button onClick={proceedHandler}>Proceed to checkout</button>
+        </SideBar>
+      </Container>
+    </>
   );
 };
 

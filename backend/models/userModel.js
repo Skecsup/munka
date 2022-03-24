@@ -20,7 +20,15 @@ const userSchema = mongoose.Schema(
       minlength: 6,
       select: false,
     },
+    lastName: {
+      type: String,
+      default: "",
+    },
     address: {
+      type: String,
+      default: "",
+    },
+    country: {
       type: String,
       default: "",
     },
@@ -36,7 +44,7 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    cart: {
+    orders: {
       type: Array,
       default: [],
     },

@@ -10,6 +10,7 @@ export const CartItems = styled.div`
   margin: 10px;
   width: 80vw;
 `;
+
 export const SideBar = styled.div`
   min-height: 50vh;
   background-color: #eee;

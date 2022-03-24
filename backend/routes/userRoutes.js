@@ -1,7 +1,7 @@
 import {
   register,
   login,
-  getCart,
+  getOrders,
   update,
 } from "../controllers/userController.js";
 import authenticateUser from "../middleware/auth.js";
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.get("/getcart", getCart);
+router.get("/orders", getOrders);
 router.route("/update").patch(authenticateUser, update);
 
 export default router;
