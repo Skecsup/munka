@@ -6,6 +6,8 @@ import {
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
+  CREATE_ORDER,
+  GET_ORDERS,
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -53,6 +55,19 @@ const reducer = (state, action) => {
       return {
         ...state,
         cart: newArr,
+      };
+    case CREATE_ORDER:
+      let newUser = { ...state.user };
+      newUser.orders.push(action.payload);
+
+      return {
+        ...state,
+        user: newUser,
+      };
+    case GET_ORDERS:
+      return {
+        ...state,
+        orders: state.orders.concat(action.payload),
       };
 
     default:

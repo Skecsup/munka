@@ -11,6 +11,8 @@ import {
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
+  CREATE_ORDER,
+  GET_ORDERS,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -21,12 +23,14 @@ const initialState = {
   token: token || null,
   products: [],
   cart: [],
+  orders: [],
 };
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get("/api/products");
@@ -127,6 +131,31 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CHANGE_PRODUCT_AMOUNT, payload: { event, _id } });
   };
 
+  const createOrder = async (order) => {
+    try {
+      await axios.post("/api/orders", order, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
+      //dispatch({ type: CREATE_ORDER, payload: order });
+    } catch (error) {}
+  };
+
+  const getOrders = async () => {
+    try {
+      const { data } = await axios.get("/api/orders", {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
+      console.log(data);
+      dispatch({ type: GET_ORDERS, payload: data.orders });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const context = {
     ...state,
     registerUser,
@@ -137,6 +166,8 @@ const AppProvider = ({ children }) => {
     removeProductFromCart,
     changeProductAmount,
     createProduct,
+    createOrder,
+    getOrders,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

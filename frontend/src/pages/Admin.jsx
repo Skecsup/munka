@@ -14,7 +14,7 @@ const Admin = () => {
       name: name,
       desc: desc,
       image: image,
-      price: parseInt(price),
+      price: parseFloat(price),
     };
     createProduct(prod);
   };

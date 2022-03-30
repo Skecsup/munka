@@ -11,6 +11,7 @@ import connectDB from "./db/db.js";
 import UserRouter from "./routes/userRoutes.js";
 import ProductsRouter from "./routes/productRoutes.js";
 import SeedRouter from "./routes/seedRoutes.js";
+import OrderRouter from "./routes/orderRoutes.js";
 
 //middleware
 import errorHandler from "./middleware/error-handler.js";
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use("/api/seed", SeedRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/products", ProductsRouter);
+app.use("/api/orders", OrderRouter);
 
 app.use(errorHandler);
 

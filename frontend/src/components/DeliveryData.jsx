@@ -1,10 +1,28 @@
 import { useAppContext } from "../context/appContext";
 import FormRow from "./FormRow";
+import { useState } from "react";
 
-const DeliveryData = () => {
+const DeliveryData = ({ dispatch }) => {
   const { user } = useAppContext();
+  const initialState = {
+    name: user?.name || "",
+    lastName: user.lastName || "",
+    email: user.email || "",
+    phone: "+421",
+    address: user.address || "",
+    country: user.country || "",
+    city: user.city || "",
+    zip: user.zip || "",
+  };
+  const [data, setData] = useState(initialState);
+
   const handleChange = (e) => {
-    console.log(e.target.value);
+    setData({ ...data, [e.target.name]: e.target.value });
+    console.log(data);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch({ type: "DELIVERY_DATA", payload: { data } });
   };
   return (
     <div>
@@ -14,13 +32,13 @@ const DeliveryData = () => {
           <FormRow
             type="text"
             name="name"
-            value={user.name}
+            value={data.name}
             handleChange={handleChange}
           />
           <FormRow
             type="text"
             name="lastName"
-            value={user.lastName}
+            value={data.lastName}
             handleChange={handleChange}
           />
         </div>
@@ -29,13 +47,13 @@ const DeliveryData = () => {
           <FormRow
             type="email"
             name="email"
-            value={user.email}
+            value={data.email}
             handleChange={handleChange}
           />
           <FormRow
             type="text"
             name="phone"
-            value={"+421"}
+            value={data.phone}
             handleChange={handleChange}
           />
         </div>
@@ -44,7 +62,7 @@ const DeliveryData = () => {
           <FormRow
             type="text"
             name="address"
-            value={user.address}
+            value={data.address}
             handleChange={handleChange}
           />
         </div>
@@ -52,22 +70,23 @@ const DeliveryData = () => {
           <FormRow
             type="text"
             name="city"
-            value={user.city}
+            value={data.city}
             handleChange={handleChange}
           />
           <FormRow
             type="text"
             name="country"
-            value={user.country}
+            value={data.country}
             handleChange={handleChange}
           />
           <FormRow
             type="text"
             name="zip"
-            value={user.zip}
+            value={data.zip}
             handleChange={handleChange}
           />
         </div>
+        <button onClick={submitHandler}>Submit</button>
       </form>
     </div>
   );

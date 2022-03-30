@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Container } from "../assets/styles/Profile_Style";
 
 const Profile = () => {
-  const { user, logoutUser, updateUser } = useAppContext();
+  const { user, logoutUser, updateUser, getOrders } = useAppContext();
 
   const [name, setName] = useState(user?.name);
   const [lastName, setLastName] = useState(user?.lastName);
@@ -16,6 +16,10 @@ const Profile = () => {
   const [zip, setZip] = useState(user?.zip);
 
   const navigate = useNavigate();
+
+  const displayOrders = () => {
+    getOrders(user._id);
+  };
 
   const logoutHandler = () => {
     logoutUser();
@@ -28,56 +32,62 @@ const Profile = () => {
 
   return (
     <Container>
-      <h1>Profile</h1>
+      <div>
+        <h1>Profile</h1>
 
-      <form onSubmit={submitHandler}>
-        <FormRow
-          type="text"
-          name="name"
-          value={name}
-          handleChange={(e) => setName(e.target.value)}
-        />
-        <FormRow
-          type="text"
-          name="lastName"
-          value={lastName}
-          handleChange={(e) => setLastName(e.target.value)}
-        />
-        <FormRow
-          type="email"
-          name="email"
-          value={email}
-          handleChange={(e) => setEmail(e.target.value)}
-        />
-        <FormRow
-          type="text"
-          name="address"
-          value={address}
-          handleChange={(e) => setAddress(e.target.value)}
-        />
-        <div>
+        <form onSubmit={submitHandler}>
           <FormRow
             type="text"
-            name="country"
-            value={country}
-            handleChange={(e) => setCountry(e.target.value)}
+            name="name"
+            value={name}
+            handleChange={(e) => setName(e.target.value)}
           />
           <FormRow
             type="text"
-            name="city"
-            value={city}
-            handleChange={(e) => setCity(e.target.value)}
+            name="lastName"
+            value={lastName}
+            handleChange={(e) => setLastName(e.target.value)}
+          />
+          <FormRow
+            type="email"
+            name="email"
+            value={email}
+            handleChange={(e) => setEmail(e.target.value)}
           />
           <FormRow
             type="text"
-            name="zip"
-            value={zip}
-            handleChange={(e) => setZip(e.target.value)}
+            name="address"
+            value={address}
+            handleChange={(e) => setAddress(e.target.value)}
           />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <button onClick={logoutHandler}>logout</button>
+          <div>
+            <FormRow
+              type="text"
+              name="country"
+              value={country}
+              handleChange={(e) => setCountry(e.target.value)}
+            />
+            <FormRow
+              type="text"
+              name="city"
+              value={city}
+              handleChange={(e) => setCity(e.target.value)}
+            />
+            <FormRow
+              type="text"
+              name="zip"
+              value={zip}
+              handleChange={(e) => setZip(e.target.value)}
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+        <button onClick={logoutHandler}>logout</button>
+      </div>
+      <div>
+        <h1>Orders</h1>
+        <button onClick={displayOrders}>get orders</button>
+      </div>
     </Container>
   );
 };
