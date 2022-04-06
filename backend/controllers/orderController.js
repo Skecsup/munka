@@ -17,4 +17,20 @@ const getOrders = async (req, res) => {
   res.status(200).json({ orders });
 };
 
-export { createOrder, getOrders };
+const getAllOrders = async (req, res) => {
+  const orders = await Order.find({});
+  res.status(200).json({ orders });
+};
+
+const updateOrderStatus = async (req, res) => {
+  const { status, order } = req.body;
+  if (!status || !order) {
+    throw new BadRequestError("Please provide all values");
+  }
+  const updatedOrder = await Order.findOne({ _id: req.body.order._id });
+  updatedOrder.status = status;
+  await updatedOrder.save();
+  res.status(200).json({ order });
+};
+
+export { createOrder, getOrders, getAllOrders, updateOrderStatus };

@@ -1,7 +1,7 @@
-import React from "react";
+import { forwardRef } from "react";
 import { useAppContext } from "../context/appContext";
 
-const Order = ({ totalPrice, payment, ship }) => {
+const Order = forwardRef(({ totalPrice, payment, ship }, ref) => {
   const { user, cart } = useAppContext();
   return (
     <div>
@@ -50,6 +50,6 @@ const Order = ({ totalPrice, payment, ship }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Order;

@@ -11,8 +11,8 @@ import {
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
-  CREATE_ORDER,
   GET_ORDERS,
+  MANAGE_ORDERS,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -33,13 +33,30 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get("/api/products");
-
-      const prod = data.products;
-      dispatch({ type: FETCH_DATA, payload: { prod } });
+      try {
+        const { data } = await axios.get("/api/products");
+        const prod = data.products;
+        dispatch({ type: FETCH_DATA, payload: { prod } });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const fetchAdminData = async () => {
+      try {
+        if (state.user.role !== null && state.user.role === 1) {
+          const { data } = await axios.get("/api/orders/adminOrders");
+          console.log(data);
+          dispatch({ type: GET_ORDERS, payload: data.orders });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
-  }, []);
+    if (state.user !== null) {
+      fetchAdminData();
+    }
+  }, [state.user, state.product]);
 
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -138,7 +155,6 @@ const AppProvider = ({ children }) => {
           Authorization: `Bearer ${state.token}`,
         },
       });
-      //dispatch({ type: CREATE_ORDER, payload: order });
     } catch (error) {}
   };
 
@@ -149,8 +165,31 @@ const AppProvider = ({ children }) => {
           Authorization: `Bearer ${state.token}`,
         },
       });
-      console.log(data);
       dispatch({ type: GET_ORDERS, payload: data.orders });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const adminGetOrders = async () => {
+    try {
+      const { data } = await axios.get("/api/orders/adminOrders");
+      dispatch({ type: GET_ORDERS, payload: data.orders });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const manageOrders = async (status, order) => {
+    try {
+      const { data } = await axios.patch("/api/orders/adminOrders", {
+        order,
+        status,
+      });
+
+      const id = data.order._id;
+
+      dispatch({ type: MANAGE_ORDERS, payload: { id, status } });
     } catch (error) {
       console.log(error);
     }
@@ -168,6 +207,8 @@ const AppProvider = ({ children }) => {
     createProduct,
     createOrder,
     getOrders,
+    adminGetOrders,
+    manageOrders,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

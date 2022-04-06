@@ -5,7 +5,7 @@ import DeliveryData from "../components/DeliveryData";
 import ShippingPayment from "../components/ShippingPayment";
 import Order from "../components/Order";
 
-import { useState, useReducer } from "react";
+import { useState, useReducer, useCallback } from "react";
 
 const initialState = {
   orderedItems: [],
@@ -31,13 +31,13 @@ const reducer = (orderState, action) => {
     case "DELIVERY_DATA":
       return {
         ...orderState,
-        name: action.payload.data.name,
-        lastName: action.payload.data.lastName,
-        address: action.payload.data.address,
-        country: action.payload.data.country,
-        city: action.payload.data.city,
-        zip: action.payload.data.zip,
-        PhoneNumber: action.payload.data.phone,
+        name: action.payload.name,
+        lastName: action.payload.lastName,
+        address: action.payload.address,
+        country: action.payload.country,
+        city: action.payload.city,
+        zip: action.payload.zip,
+        PhoneNumber: action.payload.phone,
       };
     case "SET_PAYMENT_SHIPPING":
       return {
@@ -77,8 +77,16 @@ const Cart = () => {
     totalItems += i.count;
   });
 
+  const eventhandler = useCallback((data) => {
+    console.log(data.data);
+    dispatch({ type: data.type, payload: data.data });
+  }, []);
+
   const addItemsToOrder = () => {
     dispatch({ type: "ADD_ITEMS_TO_ORDER", payload: cart });
+  };
+  const addPriceToOrder = () => {
+    dispatch({ type: "ADD_PRICES", payload: totalPrice });
   };
 
   const proceedHandler = () => {
@@ -90,8 +98,8 @@ const Cart = () => {
     }
     if (step === 2) {
     }
+    addPriceToOrder();
     if (step === 3) {
-      dispatch({ type: "ADD_PRICES", payload: totalPrice });
     }
     if (step >= 3) {
       createOrder(orderState);
@@ -99,37 +107,31 @@ const Cart = () => {
     }
   };
 
-  let cartContent = (
-    <CartItems>
-      {cart.map((item, index) => {
-        return <SingleCartProduct prod={item} key={index} />;
-      })}
-    </CartItems>
-  );
-  let billingData = <DeliveryData dispatch={dispatch} />;
-
-  let shipping_payment = (
-    <ShippingPayment
-      payment={orderState.PaymentMethod}
-      ship={orderState.ShippingMethod}
-      dispatch={dispatch}
-    />
-  );
-  let order = (
-    <Order
-      totalPrice={totalPrice}
-      ship={orderState.ShippingMethod}
-      payment={orderState.PaymentMethod}
-    />
-  );
-
   return (
     <>
       <Container>
-        {step === 0 && cartContent}
-        {step === 1 && billingData}
-        {step === 2 && shipping_payment}
-        {step === 3 && order}
+        {step === 0 && (
+          <CartItems>
+            {cart.map((item, index) => {
+              return <SingleCartProduct prod={item} key={index} />;
+            })}
+          </CartItems>
+        )}
+        {step === 1 && <DeliveryData forwardData={eventhandler} />}
+        {step === 2 && (
+          <ShippingPayment
+            forwardData={eventhandler}
+            payment={orderState.PaymentMethod}
+            ship={orderState.ShippingMethod}
+          />
+        )}
+        {step === 3 && (
+          <Order
+            totalPrice={totalPrice}
+            ship={orderState.ShippingMethod}
+            payment={orderState.PaymentMethod}
+          />
+        )}
 
         <SideBar>
           <h1>Subtotal ({totalItems}) items</h1>

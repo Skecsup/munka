@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import FormRow from "../components/FormRow";
+import AdminOrder from "../components/AdminOrder";
 import { useAppContext } from "../context/appContext";
 const Admin = () => {
-  const { createProduct } = useAppContext();
+  const { createProduct, adminGetOrders, orders, manageOrders } =
+    useAppContext();
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
+
+  const getOrders = () => {
+    adminGetOrders();
+  };
+
+  const changeStatus = (e, order) => {
+    manageOrders(e.target.value, order);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -52,6 +62,15 @@ const Admin = () => {
 
         <button type="submit">Submit</button>
       </form>
+      <h1>ORDERS</h1>
+      <button onClick={getOrders}>get orders</button>
+      <div>
+        {orders.map((order, index) => {
+          return (
+            <AdminOrder handleChange={changeStatus} order={order} key={index} />
+          );
+        })}
+      </div>
     </div>
   );
 };

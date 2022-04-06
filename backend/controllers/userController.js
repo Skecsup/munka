@@ -71,8 +71,4 @@ const update = async (req, res) => {
   res.status(200).json({ user, token });
 };
 
-const getOrders = (req, res) => {
-  res.status(200).json({ msg: "orders" });
-};
-
-export { register, login, update, getOrders };
+export { register, login, update };

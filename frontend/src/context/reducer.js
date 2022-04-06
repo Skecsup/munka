@@ -8,6 +8,7 @@ import {
   CHANGE_PRODUCT_AMOUNT,
   CREATE_ORDER,
   GET_ORDERS,
+  MANAGE_ORDERS,
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -67,7 +68,16 @@ const reducer = (state, action) => {
     case GET_ORDERS:
       return {
         ...state,
-        orders: state.orders.concat(action.payload),
+        orders: action.payload,
+      };
+
+    case MANAGE_ORDERS:
+      let newOrders = [...state.orders];
+      newOrders.find((item) => item._id === action.payload.id).status =
+        action.payload.status;
+      return {
+        ...state,
+        orders: newOrders,
       };
 
     default:

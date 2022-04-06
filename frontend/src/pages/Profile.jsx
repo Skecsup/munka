@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Container } from "../assets/styles/Profile_Style";
 
 const Profile = () => {
-  const { user, logoutUser, updateUser, getOrders } = useAppContext();
+  const { user, logoutUser, updateUser, getOrders, orders } = useAppContext();
 
   const [name, setName] = useState(user?.name);
   const [lastName, setLastName] = useState(user?.lastName);
@@ -19,6 +19,10 @@ const Profile = () => {
 
   const displayOrders = () => {
     getOrders(user._id);
+  };
+
+  const toAdmin = () => {
+    navigate("/admin");
   };
 
   const logoutHandler = () => {
@@ -85,8 +89,16 @@ const Profile = () => {
         <button onClick={logoutHandler}>logout</button>
       </div>
       <div>
-        <h1>Orders</h1>
-        <button onClick={displayOrders}>get orders</button>
+        {user.role === 1 && <button onClick={toAdmin}>ADMIN PAGE</button>}
+        {user.role === 0 && (
+          <div>
+            <h1>Orders</h1>
+            <button onClick={displayOrders}>get orders</button>
+            {orders.map((order) => {
+              return <div key={order._id}>{order._id}</div>;
+            })}
+          </div>
+        )}
       </div>
     </Container>
   );

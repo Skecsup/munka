@@ -19,6 +19,12 @@ const orderSchema = mongoose.Schema(
     shippingPrice: { type: Number, required: true },
     taxPrice: { type: Number, required: true },
     totalPrice: { type: Number, required: true },
+    status: {
+      type: String,
+      required: true,
+      enum: ["NEW", "PAID/SHIPPING", "SHIPPED"],
+      default: "NEW",
+    },
   },
   { timestamps: true }
 );

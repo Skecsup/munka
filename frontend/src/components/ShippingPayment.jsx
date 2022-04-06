@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ShippingPayment = ({ dispatch }) => {
+const ShippingPayment = ({ forwardData }) => {
   const [temp1, setTemp1] = useState({ name: "", price: 0 });
   const [temp2, setTemp2] = useState({ name: "", price: 0 });
 
@@ -28,17 +28,12 @@ const ShippingPayment = ({ dispatch }) => {
     }
   };
 
-  const handleChange = () => {
-    dispatch({ type: "SET_PAYMENT_SHIPPING", payload: [temp1, temp2] });
-  };
-
   const onPaymentChange = (e) => {
     setTemp1({
       ...temp1,
       name: e.target.value,
       price: checkForD(e.target.value),
     });
-    console.log(temp1);
   };
   const onShipChange = (e) => {
     setTemp2({
@@ -46,8 +41,13 @@ const ShippingPayment = ({ dispatch }) => {
       name: e.target.value,
       price: calcPrice(e.target.value),
     });
-    console.log(temp2);
   };
+
+  useEffect(() => {
+    if (forwardData) {
+      forwardData({ type: "SET_PAYMENT_SHIPPING", data: [temp1, temp2] });
+    }
+  }, [temp1, temp2, forwardData]);
   return (
     <>
       <div onChange={onPaymentChange}>
@@ -62,7 +62,9 @@ const ShippingPayment = ({ dispatch }) => {
 
         <label htmlFor="4">Crypto</label>
         <input type="radio" name="payment" id="4" value={"Crypto"} />
+        <div>counter</div>
       </div>
+
       <div onChange={onShipChange}>
         {temp1.name === "Dobierka" && (
           <>
@@ -112,7 +114,6 @@ const ShippingPayment = ({ dispatch }) => {
           </>
         )}
       </div>
-      <button onClick={handleChange}>submit</button>
     </>
   );
 };
