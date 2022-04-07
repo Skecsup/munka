@@ -1,32 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "../assets/styles/Filter_Style";
 
-const Filter = () => {
+const Filter = ({ forwardData }) => {
+  const [priceRange, setPriceRange] = useState(1000);
+  const [searchValue, setSearchValue] = useState("");
+  const priceSearch = (e) => {
+    setPriceRange(e.target.value);
+  };
+  const nameSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (forwardData) {
+      forwardData({ priceRange, searchValue });
+    }
+  }, [priceRange, searchValue, forwardData]);
+
   return (
     <Container>
       <div>
         <label htmlFor="search">Search</label>
-        <input type="text" placeholder="Search..." name="search" />
+        <input
+          onChange={nameSearch}
+          type="text"
+          placeholder="Search..."
+          name="search"
+          value={searchValue}
+        />
       </div>
+
       <div>
-        <div>
-          <input type="checkbox" name="virag" />
-          <label htmlFor="virag">virag</label>
-        </div>
-        <div>
-          <input type="checkbox" name="traktor" />
-          <label htmlFor="traktor">traktor</label>
-        </div>
-        <div>
-          <input type="checkbox" name="kocsi" />
-          <label htmlFor="kocsi">kocsi</label>
-        </div>
-      </div>
-      <div>
-        <input type="range" name="price" />
+        <input
+          value={priceRange}
+          onChange={priceSearch}
+          type="range"
+          name="price"
+          step={10}
+          min={0}
+          max={1000}
+        />
         <label htmlFor="price">price</label>
+        <p>{priceRange} EUR</p>
       </div>
-      <button>clear filters</button>
     </Container>
   );
 };
