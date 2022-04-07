@@ -8,15 +8,18 @@ const Shop = () => {
   const { products } = useAppContext();
   const [filteredProducts, setFilteredProducts] = useState([...products]);
 
-  const eventHandler = useCallback((data) => {
-    setFilteredProducts(
-      filteredProducts.filter(
-        (item) =>
-          item.name.toLowerCase().includes(data.searchValue.toLowerCase()) &&
-          item.price <= data.priceRange
-      )
-    );
-  }, []);
+  const eventHandler = useCallback(
+    (data) => {
+      setFilteredProducts(
+        products.filter(
+          (item) =>
+            item.name.toLowerCase().includes(data.searchValue.toLowerCase()) &&
+            item.price <= data.priceRange
+        )
+      );
+    },
+    [products]
+  );
 
   return (
     <Container>
