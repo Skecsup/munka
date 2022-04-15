@@ -4,6 +4,7 @@ import {
   SETUP_USER,
   LOGOUT_USER,
   ADD_PRODUCT_TO_CART,
+  CLEAR_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
   CREATE_ORDER,
@@ -38,6 +39,8 @@ const reducer = (state, action) => {
 
     case ADD_PRODUCT_TO_CART:
       return { ...state, cart: state.cart.concat(action.payload.product) };
+    case CLEAR_CART:
+      return { ...state, cart: [] };
 
     case REMOVE_PRODUCT_FROM_CART:
       let temp = [...state.products];

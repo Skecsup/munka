@@ -2,7 +2,8 @@ import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import { useState } from "react";
-import { Container } from "../assets/styles/Profile_Style";
+import { Container, Left, Right, Row } from "../assets/styles/Profile_Style";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const Profile = () => {
   const { user, logoutUser, updateUser, getOrders, orders } = useAppContext();
@@ -36,22 +37,24 @@ const Profile = () => {
 
   return (
     <Container>
-      <div>
+      <Left>
         <h1>Profile</h1>
 
         <form onSubmit={submitHandler}>
-          <FormRow
-            type="text"
-            name="name"
-            value={name}
-            handleChange={(e) => setName(e.target.value)}
-          />
-          <FormRow
-            type="text"
-            name="lastName"
-            value={lastName}
-            handleChange={(e) => setLastName(e.target.value)}
-          />
+          <Row>
+            <FormRow
+              type="text"
+              name="name"
+              value={name}
+              handleChange={(e) => setName(e.target.value)}
+            />
+            <FormRow
+              type="text"
+              name="lastName"
+              value={lastName}
+              handleChange={(e) => setLastName(e.target.value)}
+            />
+          </Row>
           <FormRow
             type="email"
             name="email"
@@ -64,7 +67,7 @@ const Profile = () => {
             value={address}
             handleChange={(e) => setAddress(e.target.value)}
           />
-          <div>
+          <Row>
             <FormRow
               type="text"
               name="country"
@@ -83,12 +86,14 @@ const Profile = () => {
               value={zip}
               handleChange={(e) => setZip(e.target.value)}
             />
-          </div>
-          <button type="submit">Submit</button>
+          </Row>
+          <button type="submit">Update</button>
         </form>
-        <button onClick={logoutHandler}>logout</button>
-      </div>
-      <div>
+        <button onClick={logoutHandler}>
+          <FaSignOutAlt /> Logout
+        </button>
+      </Left>
+      <Right>
         {user.role === 1 && <button onClick={toAdmin}>ADMIN PAGE</button>}
         {user.role === 0 && (
           <div>
@@ -99,7 +104,7 @@ const Profile = () => {
             })}
           </div>
         )}
-      </div>
+      </Right>
     </Container>
   );
 };

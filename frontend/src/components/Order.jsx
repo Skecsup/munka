@@ -1,55 +1,69 @@
-import { forwardRef } from "react";
 import { useAppContext } from "../context/appContext";
+import { Container, Items } from "../assets/styles/Order_Style";
 
-const Order = forwardRef(({ totalPrice, payment, ship }, ref) => {
-  const { user, cart } = useAppContext();
+const Order = ({ order, setStep }) => {
+  const { cart } = useAppContext();
   return (
-    <div>
-      <h1>your order</h1>
+    <Container>
+      <h1>Your order</h1>
       <div>
-        {cart.map((item, index) => {
-          return <div key={index}>{item.name}</div>;
-        })}
+        <h2>Items</h2>
+        <Items onClick={() => setStep(0)}>
+          {cart.map((item, index) => {
+            return (
+              <div key={index}>
+                <img
+                  src={item.image}
+                  width="50px"
+                  height="50px"
+                  alt={item.name}
+                />
+                <p>
+                  {item.count} x {item.name}
+                </p>
+              </div>
+            );
+          })}
+        </Items>
       </div>
       <div>
-        <div>
-          <strong>{user.name}</strong>
-          <span> </span>
-          <strong>{user.lastName}</strong>
-        </div>
-        <div>
-          <strong>{user.email}</strong>
-        </div>
-        <div>
-          <strong>{user.address}</strong>
-          <span> </span>
-          <strong>{user.city}</strong>
-          <span> </span>
-          <strong>{user.zip}</strong>
-        </div>
+        <h2>Costumer details</h2>
+        <table onClick={() => setStep(1)}>
+          <tr>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Phone number</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Postal code</th>
+            <th>Country</th>
+          </tr>
+          <tr>
+            <td>{order.name + " " + order.lastName}</td>
+            <td>{order.email}</td>
+            <td>{order.PhoneNumber}</td>
+            <td>{order.address}</td>
+            <td>{order.city}</td>
+            <td>{order.zip}</td>
+            <td>{order.country}</td>
+          </tr>
+        </table>
       </div>
       <div>
-        <strong>{payment}</strong>
-        <span> </span>
-        <strong>{ship}</strong>
+        <h2>Payment and Shipping</h2>
+        <table onClick={() => setStep(2)}>
+          <tr>
+            <th>Payment</th>
+            <th>Shipment</th>
+          </tr>
+          <tr>
+            <td>{order.PaymentMethod}</td>
+            <td>{order.ShippingMethod}</td>
+          </tr>
+        </table>
       </div>
-      <div>
-        <h3>money</h3>
-        <div>
-          <strong>subtotal</strong>
-          <span> {Math.round(totalPrice * 0.8 * 100) / 100}</span>
-        </div>
-        <div>
-          <strong>tax</strong>
-          <span> {Math.round(totalPrice * 0.2 * 100) / 100}</span>
-        </div>
-        <div>
-          <strong>total</strong>
-          <span> {totalPrice}</span>
-        </div>
-      </div>
-    </div>
+    </Container>
   );
-});
+};
 
 export default Order;

@@ -9,6 +9,7 @@ import {
   SETUP_USER,
   LOGOUT_USER,
   ADD_PRODUCT_TO_CART,
+  CLEAR_CART,
   REMOVE_PRODUCT_FROM_CART,
   CHANGE_PRODUCT_AMOUNT,
   GET_ORDERS,
@@ -141,6 +142,9 @@ const AppProvider = ({ children }) => {
   const addProductToCart = (product) => {
     dispatch({ type: ADD_PRODUCT_TO_CART, payload: { product } });
   };
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
   const removeProductFromCart = (_id) => {
     dispatch({ type: REMOVE_PRODUCT_FROM_CART, payload: { _id } });
   };
@@ -155,7 +159,10 @@ const AppProvider = ({ children }) => {
           Authorization: `Bearer ${state.token}`,
         },
       });
-    } catch (error) {}
+      alert("your order was created");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getOrders = async () => {
@@ -186,7 +193,7 @@ const AppProvider = ({ children }) => {
         order,
         status,
       });
-
+      console.log(data);
       const id = data.order._id;
 
       dispatch({ type: MANAGE_ORDERS, payload: { id, status } });
@@ -202,6 +209,7 @@ const AppProvider = ({ children }) => {
     logoutUser,
     updateUser,
     addProductToCart,
+    clearCart,
     removeProductFromCart,
     changeProductAmount,
     createProduct,

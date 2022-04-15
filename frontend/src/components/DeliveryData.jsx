@@ -1,7 +1,7 @@
 import { useAppContext } from "../context/appContext";
 import FormRow from "./FormRow";
 import { useEffect, useState } from "react";
-import { Container } from "../assets/styles/DeliveryData_Style";
+import { Container, Row } from "../assets/styles/DeliveryData_Style";
 
 const DeliveryData = ({ forwardData }) => {
   const { user } = useAppContext();
@@ -31,63 +31,69 @@ const DeliveryData = ({ forwardData }) => {
   return (
     <Container>
       <div>
-        <h1>Name</h1>
-        <FormRow
-          type="text"
-          name="name"
-          value={data.name}
-          handleChange={handleChange}
-        />
-        <FormRow
-          type="text"
-          name="lastName"
-          value={data.lastName}
-          handleChange={handleChange}
-        />
-      </div>
-      <div>
-        <h1>email</h1>
+        <h1>Contacts</h1>
+        <Row>
+          <FormRow
+            type="text"
+            name="name"
+            value={data.name}
+            handleChange={handleChange}
+            labelText="First name"
+          />
+          <FormRow
+            type="text"
+            name="lastName"
+            value={data.lastName}
+            handleChange={handleChange}
+            labelText="Last name"
+          />
+        </Row>
         <FormRow
           type="email"
           name="email"
           value={data.email}
           handleChange={handleChange}
+          labelText="E-mail"
         />
         <FormRow
           type="text"
           name="phone"
           value={data.phone}
           handleChange={handleChange}
+          labelText="Phone number"
         />
       </div>
       <div>
-        <h1>address</h1>
+        <h1>Shipping address</h1>
+
         <FormRow
           type="text"
           name="address"
           value={data.address}
           handleChange={handleChange}
         />
-      </div>
-      <div>
+
         <FormRow
           type="text"
           name="city"
           value={data.city}
           handleChange={handleChange}
         />
-        <FormRow
-          type="text"
-          name="country"
-          value={data.country}
-          handleChange={handleChange}
-        />
-        <FormRow
-          type="text"
-          name="zip"
-          value={data.zip}
-          handleChange={handleChange}
-        />
+        <Row>
+          <FormRow
+            type="text"
+            name="country"
+            value={data.country}
+            handleChange={handleChange}
+          />
+          <FormRow
+            type="text"
+            name="zip"
+            value={data.zip}
+            handleChange={handleChange}
+            labelText="Postal code"
+          />
+        </Row>
       </div>
     </Container>
   );

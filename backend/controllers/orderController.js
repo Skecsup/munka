@@ -27,6 +27,7 @@ const updateOrderStatus = async (req, res) => {
   if (!status || !order) {
     throw new BadRequestError("Please provide all values");
   }
+  console.log(req.body);
   const updatedOrder = await Order.findOne({ _id: req.body.order._id });
   updatedOrder.status = status;
   await updatedOrder.save();

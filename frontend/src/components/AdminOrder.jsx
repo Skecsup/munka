@@ -8,15 +8,10 @@ const AdminOrder = ({ order, handleChange }) => {
       <span> </span>
       <strong>{order.totalPrice}</strong>
       <span> </span>
-      <span>{order.lastName}</span>
-      <span> </span>
-      <span>{order.name}</span>
-      <span> </span>
-      <span>
-        {order.orderedItems.map((item, index) => {
-          return <span key={index}>{item.name + " " + item.count}</span>;
-        })}
-      </span>
+      <span>{order.lastName + " " + order.name}</span>
+
+      <span>{order.email}</span>
+      <span>{order.PaymentMethod}</span>
       <select
         name="status"
         value={order.status}

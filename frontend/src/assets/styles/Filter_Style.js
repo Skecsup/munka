@@ -5,17 +5,18 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  height: 10rem;
-  background-color: #ccc;
-  flex-wrap: wrap;
+  height: 100px;
+  background-color: #eee;
+  margin-bottom: 10px;
 
   label {
-    color: red;
+    color: #997cd6;
   }
   input[type="text"] {
     border-radius: 5px;
-    border: 1px solid red;
+    border: 1px solid #997cd6;
   }
-  input[type="checkbox"] {
+  input[type="range"] {
+    color: #997cd6;
   }
 `;

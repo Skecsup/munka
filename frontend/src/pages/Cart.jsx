@@ -4,6 +4,7 @@ import { useAppContext } from "../context/appContext";
 import DeliveryData from "../components/DeliveryData";
 import ShippingPayment from "../components/ShippingPayment";
 import Order from "../components/Order";
+import { useNavigate } from "react-router-dom";
 
 import { useState, useReducer, useCallback } from "react";
 
@@ -12,6 +13,7 @@ const initialState = {
 
   name: "",
   lastName: "",
+  email: "",
   address: "",
   city: "",
   zip: "",
@@ -33,6 +35,7 @@ const reducer = (orderState, action) => {
         ...orderState,
         name: action.payload.name,
         lastName: action.payload.lastName,
+        email: action.payload.email,
         address: action.payload.address,
         country: action.payload.country,
         city: action.payload.city,
@@ -60,7 +63,7 @@ const reducer = (orderState, action) => {
         totalPrice: action.payload + orderState.shippingPrice,
       };
     default:
-      return orderState;
+      return initialState;
   }
 };
 
@@ -68,7 +71,9 @@ const Cart = () => {
   const [orderState, dispatch] = useReducer(reducer, initialState);
   const [step, setStep] = useState(0);
 
-  const { cart, createOrder } = useAppContext();
+  const { cart, createOrder, clearCart } = useAppContext();
+
+  const navigate = useNavigate();
 
   let totalPrice = 0;
   let totalItems = 0;
@@ -90,7 +95,9 @@ const Cart = () => {
   };
 
   const proceedHandler = () => {
-    setStep(step + 1);
+    if (cart.length !== 0) {
+      setStep(step + 1);
+    }
     if (step === 0) {
       addItemsToOrder();
     }
@@ -103,20 +110,26 @@ const Cart = () => {
     }
     if (step >= 3) {
       createOrder(orderState);
+      clearCart();
+      dispatch({ type: "none" });
       setStep(0);
+      navigate("/");
     }
   };
 
   return (
     <>
       <Container>
-        {step === 0 && (
-          <CartItems>
-            {cart.map((item, index) => {
-              return <SingleCartProduct prod={item} key={index} />;
-            })}
-          </CartItems>
-        )}
+        {step === 0 &&
+          (cart.length === 0 ? (
+            <h1>No items in cart</h1>
+          ) : (
+            <CartItems>
+              {cart.map((item, index) => {
+                return <SingleCartProduct prod={item} key={index} />;
+              })}
+            </CartItems>
+          ))}
         {step === 1 && <DeliveryData forwardData={eventhandler} />}
         {step === 2 && (
           <ShippingPayment
@@ -125,13 +138,7 @@ const Cart = () => {
             ship={orderState.ShippingMethod}
           />
         )}
-        {step === 3 && (
-          <Order
-            totalPrice={totalPrice}
-            ship={orderState.ShippingMethod}
-            payment={orderState.PaymentMethod}
-          />
-        )}
+        {step === 3 && <Order order={orderState} setStep={setStep} />}
 
         <SideBar>
           <h1>Subtotal ({totalItems}) items</h1>
@@ -139,7 +146,10 @@ const Cart = () => {
           <h2>Tax: {totalPrice * 0.2}€</h2>
           <h2>Shipping: {orderState.shippingPrice}€</h2>
           <h2>Total: {totalPrice}€</h2>
-          <button onClick={proceedHandler}>Proceed to checkout</button>
+          <h2>Total + Shipping: {totalPrice + orderState.shippingPrice}€</h2>
+          <button onClick={proceedHandler}>
+            {step === 3 ? "Confirm order" : "Proceed to checkout"}
+          </button>
         </SideBar>
       </Container>
     </>

@@ -40,8 +40,7 @@ const Filter = ({ forwardData }) => {
           min={0}
           max={1000}
         />
-        <label htmlFor="price">price</label>
-        <p>{priceRange} EUR</p>
+        <label htmlFor="price">{priceRange} EUR</label>
       </div>
     </Container>
   );

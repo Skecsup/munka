@@ -9,7 +9,8 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  filter: drop-shadow(0 0 5px #aaa);
+  filter: drop-shadow(0 0 5px #999);
+  height: 100px;
 
   img {
     width: 80px;
@@ -80,25 +81,6 @@ export const Nav = styled.nav`
       top: 150px;
       left: 380px;
     }
-  }
-
-  .dropdown {
-    position: absolute;
-    top: 80px;
-    left: 303px;
-    width: 30%;
-    background: #997cd6;
-    padding: 0.5rem;
-    text-align: center;
-    visibility: hidden;
-    border-radius: 20px;
-    @media (max-width: 768px) {
-      top: 215px;
-      left: 10px;
-    }
-  }
-  .show-dropdown {
-    visibility: visible;
   }
 
   @media (max-width: 768px) {

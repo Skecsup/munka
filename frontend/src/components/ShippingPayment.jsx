@@ -1,4 +1,18 @@
 import { useState, useEffect } from "react";
+import {
+  Container,
+  Payment,
+  Shipping,
+} from "../assets/styles/ShippingPayment_Style";
+import {
+  FaTruck,
+  FaMoneyBill,
+  FaBitcoin,
+  FaUniversity,
+  FaEnvelope,
+  FaHome,
+  FaWalking,
+} from "react-icons/fa";
 
 const ShippingPayment = ({ forwardData }) => {
   const [temp1, setTemp1] = useState({ name: "", price: 0 });
@@ -49,72 +63,108 @@ const ShippingPayment = ({ forwardData }) => {
     }
   }, [temp1, temp2, forwardData]);
   return (
-    <>
-      <div onChange={onPaymentChange}>
-        <label htmlFor="1">Dobierka</label>
-        <input type="radio" name="payment" id="1" value={"Dobierka"} />
+    <Container>
+      <Payment onChange={onPaymentChange}>
+        <div>
+          <input type="radio" name="payment" id="1" value={"Dobierka"} />
+          <FaTruck className="icon" />
 
-        <label htmlFor="2">Prevod</label>
-        <input type="radio" name="payment" id="2" value={"Prevod"} />
+          <label htmlFor="1"> Dobierka </label>
+        </div>
+        <div>
+          <input type="radio" name="payment" id="2" value={"Prevod"} />
+          <FaUniversity className="icon" />
+          <label htmlFor="2"> Prevod </label>
+        </div>
+        <div>
+          <input type="radio" name="payment" id="3" value={"Hotovost"} />
+          <FaMoneyBill className="icon" />
+          <label htmlFor="3"> Hotovost </label>
+        </div>
+        <div>
+          <input type="radio" name="payment" id="4" value={"Crypto"} />
+          <FaBitcoin className="icon" />
+          <label htmlFor="4"> Crypto </label>
+        </div>
+      </Payment>
 
-        <label htmlFor="3">Hotovost</label>
-        <input type="radio" name="payment" id="3" value={"Hotovost"} />
-
-        <label htmlFor="4">Crypto</label>
-        <input type="radio" name="payment" id="4" value={"Crypto"} />
-        <div>counter</div>
-      </div>
-
-      <div onChange={onShipChange}>
+      <Shipping onChange={onShipChange}>
         {temp1.name === "Dobierka" && (
           <>
-            <label htmlFor="1">Na adresu</label>
-            <input type="radio" name="shipping" id="1" value={"D_Na_Adresu"} />
-
-            <label htmlFor="2">Na postu</label>
-            <input type="radio" name="shipping" id="2" value={"D_Na_Postu"} />
+            <div>
+              <input
+                type="radio"
+                name="shipping"
+                id="1"
+                value={"D_Na_Adresu"}
+              />
+              <FaHome className="icon" />
+              <label htmlFor="1">Na adresu </label>
+            </div>
+            <div>
+              <input type="radio" name="shipping" id="2" value={"D_Na_Postu"} />
+              <FaEnvelope className="icon" />
+              <label htmlFor="2">Na postu </label>
+            </div>
           </>
         )}
         {temp1.name === "Prevod" && (
           <>
-            <label htmlFor="1">
-              Na adresu prevod = SK11 0000 0000 0012 3456 7890, TATRA
-            </label>
-            <input
-              type="radio"
-              name="shipping"
-              id="1"
-              value={"P_C_Na_Adresu"}
-            />
-
-            <label htmlFor="2">
-              Na postu prevod = SK11 0000 0000 0012 3456 7890, TATRA
-            </label>
-            <input type="radio" name="shipping" id="2" value={"P_C_Na_Postu"} />
+            <div>
+              <input
+                type="radio"
+                name="shipping"
+                id="1"
+                value={"P_C_Na_Adresu"}
+              />
+              <FaHome className="icon" />
+              <label htmlFor="1">Na adresu </label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="shipping"
+                id="2"
+                value={"P_C_Na_Postu"}
+              />
+              <FaEnvelope className="icon" />
+              <label htmlFor="2">Na postu </label>
+            </div>
           </>
         )}
         {temp1.name === "Hotovost" && (
-          <>
-            <label htmlFor="1">osobny odber</label>
+          <div>
             <input type="radio" name="shipping" id="1" value={"O_Odber"} />
-          </>
+            <FaWalking className="icon" />
+            <label htmlFor="1">osobny odber </label>
+          </div>
         )}
         {temp1.name === "Crypto" && (
           <>
-            <label htmlFor="1">Na adresu</label>
-            <input
-              type="radio"
-              name="shipping"
-              id="1"
-              value={"P_C_Na_Adresu"}
-            />
-
-            <label htmlFor="2">Na postu</label>
-            <input type="radio" name="shipping" id="2" value={"P_C_Na_Postu"} />
+            <div>
+              <input
+                type="radio"
+                name="shipping"
+                id="1"
+                value={"P_C_Na_Adresu"}
+              />
+              <FaHome className="icon" />
+              <label htmlFor="1">Na adresu </label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="shipping"
+                id="2"
+                value={"P_C_Na_Postu"}
+              />
+              <FaEnvelope className="icon" />
+              <label htmlFor="2">Na postu </label>
+            </div>
           </>
         )}
-      </div>
-    </>
+      </Shipping>
+    </Container>
   );
 };
 

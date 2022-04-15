@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FormRow from "../components/FormRow";
 import AdminOrder from "../components/AdminOrder";
 import { useAppContext } from "../context/appContext";
+import { Orders } from "../assets/styles/AdminOrder_Style";
 const Admin = () => {
   const { createProduct, adminGetOrders, orders, manageOrders } =
     useAppContext();
@@ -64,13 +65,14 @@ const Admin = () => {
       </form>
       <h1>ORDERS</h1>
       <button onClick={getOrders}>get orders</button>
-      <div>
+
+      <Orders>
         {orders.map((order, index) => {
           return (
             <AdminOrder handleChange={changeStatus} order={order} key={index} />
           );
         })}
-      </div>
+      </Orders>
     </div>
   );
 };
