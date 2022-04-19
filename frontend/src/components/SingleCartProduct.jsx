@@ -24,6 +24,7 @@ const SingleCartProduct = ({ prod }) => {
         <input
           type="number"
           min="1"
+          max="99"
           value={prod.count}
           onChange={(e) => counthandler(e)}
         />

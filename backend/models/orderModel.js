@@ -3,7 +3,11 @@ import mongoose from "mongoose";
 const orderSchema = mongoose.Schema(
   {
     orderedItems: { type: Array, required: true },
-    orderedBy: { type: mongoose.Types.ObjectId, ref: "User", required: true },
+    orderedBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
     name: { type: String, required: true },
     lastName: { type: String, required: true },

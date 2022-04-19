@@ -18,24 +18,25 @@ export const Container = styled.div`
   .info {
     width: 20%;
   }
-
-  .count {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      opacity: 1;
-    }
+  input {
+    width: 30px;
+    padding: 5px;
   }
+
   .remove {
     button {
       margin: 0;
+      margin-right: 10px;
       padding: 0;
       background: none;
       border: none;
-      color: purple;
+      color: #997cd6;
       font-size: 30px;
+      cursor: pointer;
+      transition: color 0.5s;
     }
     button:hover {
-      color: red;
+      color: #56417f;
     }
   }
 `;

@@ -4,7 +4,7 @@ import { useAppContext } from "../context/appContext";
 import DeliveryData from "../components/DeliveryData";
 import ShippingPayment from "../components/ShippingPayment";
 import Order from "../components/Order";
-import { useNavigate } from "react-router-dom";
+import OrderRegistered from "../components/OrderRegistered";
 
 import { useState, useReducer, useCallback } from "react";
 
@@ -71,9 +71,7 @@ const Cart = () => {
   const [orderState, dispatch] = useReducer(reducer, initialState);
   const [step, setStep] = useState(0);
 
-  const { cart, createOrder, clearCart } = useAppContext();
-
-  const navigate = useNavigate();
+  const { cart, createOrder } = useAppContext();
 
   let totalPrice = 0;
   let totalItems = 0;
@@ -100,26 +98,22 @@ const Cart = () => {
     }
     if (step === 0) {
       addItemsToOrder();
+      addPriceToOrder();
     }
     if (step === 1) {
     }
     if (step === 2) {
     }
-    addPriceToOrder();
     if (step === 3) {
     }
     if (step >= 3) {
       createOrder(orderState);
-      clearCart();
-      dispatch({ type: "none" });
-      setStep(0);
-      navigate("/");
     }
   };
 
   return (
     <>
-      <Container>
+      <Container step={step}>
         {step === 0 &&
           (cart.length === 0 ? (
             <h1>No items in cart</h1>
@@ -139,18 +133,25 @@ const Cart = () => {
           />
         )}
         {step === 3 && <Order order={orderState} setStep={setStep} />}
-
-        <SideBar>
-          <h1>Subtotal ({totalItems}) items</h1>
-          <h2>Subtotal: {totalPrice * 0.8}€</h2>
-          <h2>Tax: {totalPrice * 0.2}€</h2>
-          <h2>Shipping: {orderState.shippingPrice}€</h2>
-          <h2>Total: {totalPrice}€</h2>
-          <h2>Total + Shipping: {totalPrice + orderState.shippingPrice}€</h2>
-          <button onClick={proceedHandler}>
-            {step === 3 ? "Confirm order" : "Proceed to checkout"}
-          </button>
-        </SideBar>
+        {step === 4 && (
+          <OrderRegistered order={orderState} dispatch={dispatch} />
+        )}
+        {step !== 4 && (
+          <SideBar>
+            <h1>Subtotal ({totalItems}) items</h1>
+            <h2>Subtotal: {(totalPrice * 0.8).toFixed(2)}€</h2>
+            <h2>Tax: {(totalPrice * 0.2).toFixed(2)}€</h2>
+            <h2>Shipping: {orderState.shippingPrice}€</h2>
+            <h2>Total: {totalPrice.toFixed(2)}€</h2>
+            <h2>
+              Total + Shipping:{" "}
+              {(totalPrice + orderState.shippingPrice).toFixed(2)}€
+            </h2>
+            <button onClick={proceedHandler}>
+              {step === 3 ? "Confirm order" : "Proceed to checkout"}
+            </button>
+          </SideBar>
+        )}
       </Container>
     </>
   );

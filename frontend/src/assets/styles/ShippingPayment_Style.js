@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const Payment = styled.div`
-  width: 40vw;
+  width: 35vw;
   display: flex;
   flex-direction: column;
   div {
@@ -19,7 +19,7 @@ export const Payment = styled.div`
   }
   label {
     display: inline;
-    font-size: 50px;
+    font-size: 40px;
     margin: 10px;
   }
 
@@ -29,9 +29,12 @@ export const Payment = styled.div`
     height: 50px;
     margin: 30px;
   }
+  @media (max-width: 768px) {
+    width: 50vw;
+  }
 `;
 export const Shipping = styled.div`
-  width: 40vw;
+  width: 35vw;
   display: flex;
   flex-direction: column;
 
@@ -43,12 +46,15 @@ export const Shipping = styled.div`
   }
   label {
     display: inline;
-    font-size: 50px;
+    font-size: 40px;
   }
   input {
     display: inline;
     width: 50px;
     height: 50px;
     margin: 30px;
+  }
+  @media (max-width: 768px) {
+    width: 50vw;
   }
 `;

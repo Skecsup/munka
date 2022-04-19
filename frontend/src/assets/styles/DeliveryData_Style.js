@@ -6,10 +6,13 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50vw;
   filter: drop-shadow(0 0 0.75rem #aaa);
-  width: 80vw;
+  width: 70vw;
+  padding-bottom: 10px;
   margin: 10px 20px;
+  @media (max-width: 768px) {
+    width: calc(100vw - 40px);
+  }
 
   h1 {
     color: #997cd6;

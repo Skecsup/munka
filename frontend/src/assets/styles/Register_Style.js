@@ -61,6 +61,11 @@ export const Container = styled.div`
     border-radius: 25px;
     margin-top: 15px;
     cursor: pointer;
+    transition: background-color 0.5s, color 0.5s;
+    &:hover {
+      background-color: #56417f;
+      color: white;
+    }
   }
   .change {
     border: none;
@@ -68,6 +73,10 @@ export const Container = styled.div`
     text-decoration: underline;
     font-weight: 900;
     cursor: pointer;
+    transition: color 0.5s;
+    &:hover {
+      color: #997cd6;
+    }
   }
   p,
   .change {

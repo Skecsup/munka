@@ -29,37 +29,54 @@ const Order = ({ order, setStep }) => {
       <div>
         <h2>Costumer details</h2>
         <table onClick={() => setStep(1)}>
-          <tr>
-            <th>Name</th>
-            <th>E-mail</th>
-            <th>Phone number</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Postal code</th>
-            <th>Country</th>
-          </tr>
-          <tr>
-            <td>{order.name + " " + order.lastName}</td>
-            <td>{order.email}</td>
-            <td>{order.PhoneNumber}</td>
-            <td>{order.address}</td>
-            <td>{order.city}</td>
-            <td>{order.zip}</td>
-            <td>{order.country}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td>{order.name + " " + order.lastName}</td>
+            </tr>
+
+            <tr>
+              <th>E-mail</th>
+              <td>{order.email}</td>
+            </tr>
+            <tr>
+              <th>Phone number</th>
+              <td>{order.PhoneNumber}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>{order.address}</td>
+            </tr>
+            <tr>
+              <th>City</th>
+              <td>{order.city}</td>
+            </tr>
+            <tr>
+              <th>Postal code</th>
+              <td>{order.zip}</td>
+            </tr>
+            <tr>
+              <th>Country</th>
+              <td>{order.country}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div>
         <h2>Payment and Shipping</h2>
         <table onClick={() => setStep(2)}>
-          <tr>
-            <th>Payment</th>
-            <th>Shipment</th>
-          </tr>
-          <tr>
-            <td>{order.PaymentMethod}</td>
-            <td>{order.ShippingMethod}</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>Payment</th>
+              <th>Shipment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{order.PaymentMethod}</td>
+              <td>{order.ShippingMethod}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </Container>

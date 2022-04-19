@@ -37,5 +37,9 @@ export const Container = styled.div`
     background: white;
     border: 1px solid #997cd6;
     margin-bottom: 10px;
+    transition: filter 0.5s;
+    &:hover {
+      filter: drop-shadow(0 0 0.75rem #997cd6);
+    }
   }
 `;

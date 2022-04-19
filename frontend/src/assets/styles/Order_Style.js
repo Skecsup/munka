@@ -5,6 +5,7 @@ export const Container = styled.div`
   filter: drop-shadow(0 0 0.75rem #aaa);
   width: 80vw;
   margin: 10px 20px;
+  color: #56417f;
 
   button {
     border: none;
@@ -31,6 +32,12 @@ export const Container = styled.div`
 
   th {
     background-color: #997cd6;
+    padding: 5px;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    width: calc(100vw - 40px);
   }
 `;
 
@@ -39,6 +46,7 @@ export const Items = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   cursor: pointer;
   div {
     background-color: #fff;

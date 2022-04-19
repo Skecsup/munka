@@ -26,7 +26,7 @@ export const Container = styled.div`
     color: #997cd6;
     text-transform: capitalize;
     text-decoration: none !important;
-
+    transition: color 0.5s;
     &:hover {
       color: #56417f;
     }
@@ -43,6 +43,7 @@ export const Container = styled.div`
     border: 1px solid #997cd6;
     padding: 10px 40px;
     border-radius: 30px;
+    transition: background-color 0.5s;
     &:hover {
       background-color: #56417f;
     }
@@ -79,11 +80,12 @@ export const Nav = styled.nav`
     border-radius: 50%;
     @media (max-width: 768px) {
       top: 150px;
-      left: 380px;
+      left: 50%;
     }
   }
 
   @media (max-width: 768px) {
+    background-color: #eae4f6;
     overflow: hidden;
     flex-direction: column;
     width: 100%;

@@ -8,6 +8,7 @@ export const Container = styled.div`
   height: 100px;
   background-color: #eee;
   margin-bottom: 10px;
+  border-radius: 0 0 10px 10px;
 
   label {
     color: #997cd6;
@@ -15,8 +16,5 @@ export const Container = styled.div`
   input[type="text"] {
     border-radius: 5px;
     border: 1px solid #997cd6;
-  }
-  input[type="range"] {
-    color: #997cd6;
   }
 `;

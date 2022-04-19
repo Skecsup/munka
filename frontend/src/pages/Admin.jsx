@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FormRow from "../components/FormRow";
 import AdminOrder from "../components/AdminOrder";
 import { useAppContext } from "../context/appContext";
-import { Orders } from "../assets/styles/AdminOrder_Style";
+import { Orders, ProductCreator } from "../assets/styles/AdminOrder_Style";
 const Admin = () => {
   const { createProduct, adminGetOrders, orders, manageOrders } =
     useAppContext();
@@ -31,7 +31,7 @@ const Admin = () => {
   };
 
   return (
-    <div>
+    <ProductCreator>
       <h1>Admin</h1>
 
       <form onSubmit={submitHandler}>
@@ -73,7 +73,7 @@ const Admin = () => {
           );
         })}
       </Orders>
-    </div>
+    </ProductCreator>
   );
 };
 

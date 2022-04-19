@@ -8,13 +8,13 @@ const DeliveryData = ({ forwardData }) => {
 
   const initialState = {
     name: user?.name || "",
-    lastName: user.lastName || "",
-    email: user.email || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
     phone: "+421",
-    address: user.address || "",
-    country: user.country || "",
-    city: user.city || "",
-    zip: user.zip || "",
+    address: user?.address || "",
+    country: user?.country || "",
+    city: user?.city || "",
+    zip: user?.zip || "",
   };
   const [data, setData] = useState(initialState);
 
