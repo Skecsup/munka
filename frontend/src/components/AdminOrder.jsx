@@ -6,12 +6,26 @@ const AdminOrder = ({ order, handleChange }) => {
     <Container status={order.status}>
       <span>{order._id}</span>
       <span> </span>
-      <strong>{order.totalPrice}</strong>
+      <strong>{order.totalPrice} EUR</strong>
       <span> </span>
       <span>{order.lastName + " " + order.name}</span>
 
       <span>{order.email}</span>
-      <span>{order.PaymentMethod}</span>
+      <span>
+        {order.address} {order.city} <strong>{order.zip}</strong>
+      </span>
+      <span>
+        {order.PaymentMethod} {order.ShippingMethod}
+      </span>
+      <select name="items">
+        {order.orderedItems.map((item) => {
+          return (
+            <option>
+              {item.name} x {item.count}
+            </option>
+          );
+        })}
+      </select>
       <select
         name="status"
         value={order.status}

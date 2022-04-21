@@ -23,6 +23,11 @@ export const SideBar = styled.div`
   width: 30vw;
   margin: 10px 20px;
 
+  span {
+    color: #997cd6;
+    cursor: pointer;
+  }
+
   button {
     font-size: 20px;
     width: 80%;

@@ -20,22 +20,22 @@ const ShippingPayment = ({ forwardData }) => {
 
   const calcPrice = (value) => {
     switch (value) {
-      case "P_C_Na_Adresu":
+      case "T_C_To_Address":
         return 3.9;
-      case "P_C_Na_Postu":
+      case "T_C_To_Post":
         return 2.9;
-      case "D_Na_Adresu":
+      case "Cod_To_Address":
         return 4.3;
-      case "D_Na_Postu":
+      case "Cod_To_Post":
         return 3.3;
-      case "O_Odber":
+      case "C_Personal":
         return 0;
       default:
         return 0;
     }
   };
   const checkForD = (value) => {
-    if (value === "Dobierka") {
+    if (value === "Cash_on_delivery") {
       return 1.2;
     } else {
       return 0;
@@ -66,20 +66,25 @@ const ShippingPayment = ({ forwardData }) => {
     <Container>
       <Payment onChange={onPaymentChange}>
         <div>
-          <input type="radio" name="payment" id="1" value={"Dobierka"} />
+          <input
+            type="radio"
+            name="payment"
+            id="1"
+            value={"Cash_on_delivery"}
+          />
           <FaTruck className="icon" />
 
-          <label htmlFor="1"> Dobierka </label>
+          <label htmlFor="1"> Cash on delivery </label>
         </div>
         <div>
-          <input type="radio" name="payment" id="2" value={"Prevod"} />
+          <input type="radio" name="payment" id="2" value={"Transfer"} />
           <FaUniversity className="icon" />
-          <label htmlFor="2"> Prevod </label>
+          <label htmlFor="2"> Transfer </label>
         </div>
         <div>
-          <input type="radio" name="payment" id="3" value={"Hotovost"} />
+          <input type="radio" name="payment" id="3" value={"Cash"} />
           <FaMoneyBill className="icon" />
-          <label htmlFor="3"> Hotovost </label>
+          <label htmlFor="3"> Cash </label>
         </div>
         <div>
           <input type="radio" name="payment" id="4" value={"Crypto"} />
@@ -89,54 +94,59 @@ const ShippingPayment = ({ forwardData }) => {
       </Payment>
 
       <Shipping onChange={onShipChange}>
-        {temp1.name === "Dobierka" && (
+        {temp1.name === "Cash_on_delivery" && (
           <>
             <div>
               <input
                 type="radio"
                 name="shipping"
-                id="1"
-                value={"D_Na_Adresu"}
+                id="5"
+                value={"Cod_To_Address"}
               />
               <FaHome className="icon" />
-              <label htmlFor="1">Na adresu </label>
+              <label htmlFor="5">To Address </label>
             </div>
             <div>
-              <input type="radio" name="shipping" id="2" value={"D_Na_Postu"} />
+              <input
+                type="radio"
+                name="shipping"
+                id="6"
+                value={"Cod_To_Post"}
+              />
               <FaEnvelope className="icon" />
-              <label htmlFor="2">Na postu </label>
+              <label htmlFor="6">To Post </label>
             </div>
           </>
         )}
-        {temp1.name === "Prevod" && (
+        {temp1.name === "Transfer" && (
           <>
             <div>
               <input
                 type="radio"
                 name="shipping"
-                id="1"
-                value={"P_C_Na_Adresu"}
+                id="7"
+                value={"P_C_To_Address"}
               />
               <FaHome className="icon" />
-              <label htmlFor="1">Na adresu </label>
+              <label htmlFor="7">To Address </label>
             </div>
             <div>
               <input
                 type="radio"
                 name="shipping"
-                id="2"
-                value={"P_C_Na_Postu"}
+                id="8"
+                value={"P_C_To_Post"}
               />
               <FaEnvelope className="icon" />
-              <label htmlFor="2">Na postu </label>
+              <label htmlFor="8">To Post</label>
             </div>
           </>
         )}
-        {temp1.name === "Hotovost" && (
+        {temp1.name === "Cash" && (
           <div>
-            <input type="radio" name="shipping" id="1" value={"O_Odber"} />
+            <input type="radio" name="shipping" id="9" value={"C_Personal"} />
             <FaWalking className="icon" />
-            <label htmlFor="1">osobny odber </label>
+            <label htmlFor="9">Personal collection </label>
           </div>
         )}
         {temp1.name === "Crypto" && (
@@ -145,21 +155,21 @@ const ShippingPayment = ({ forwardData }) => {
               <input
                 type="radio"
                 name="shipping"
-                id="1"
-                value={"P_C_Na_Adresu"}
+                id="10"
+                value={"P_C_To_Address"}
               />
               <FaHome className="icon" />
-              <label htmlFor="1">Na adresu </label>
+              <label htmlFor="10">To Address </label>
             </div>
             <div>
               <input
                 type="radio"
                 name="shipping"
-                id="2"
-                value={"P_C_Na_Postu"}
+                id="11"
+                value={"P_C_To_Post"}
               />
               <FaEnvelope className="icon" />
-              <label htmlFor="2">Na postu </label>
+              <label htmlFor="11">To Post </label>
             </div>
           </>
         )}

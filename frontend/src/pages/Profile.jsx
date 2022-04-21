@@ -2,7 +2,7 @@ import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import { useState } from "react";
-import { Container, Left, Right, Row } from "../assets/styles/Profile_Style";
+import { Container, Left, Right } from "../assets/styles/Profile_Style";
 import { FaSignOutAlt } from "react-icons/fa";
 
 const Profile = () => {
@@ -41,20 +41,19 @@ const Profile = () => {
         <h1>Profile</h1>
 
         <form onSubmit={submitHandler}>
-          <Row>
-            <FormRow
-              type="text"
-              name="name"
-              value={name}
-              handleChange={(e) => setName(e.target.value)}
-            />
-            <FormRow
-              type="text"
-              name="lastName"
-              value={lastName}
-              handleChange={(e) => setLastName(e.target.value)}
-            />
-          </Row>
+          <FormRow
+            type="text"
+            name="name"
+            value={name}
+            handleChange={(e) => setName(e.target.value)}
+          />
+          <FormRow
+            type="text"
+            name="lastName"
+            value={lastName}
+            handleChange={(e) => setLastName(e.target.value)}
+          />
+
           <FormRow
             type="email"
             name="email"
@@ -67,26 +66,26 @@ const Profile = () => {
             value={address}
             handleChange={(e) => setAddress(e.target.value)}
           />
-          <Row>
-            <FormRow
-              type="text"
-              name="country"
-              value={country}
-              handleChange={(e) => setCountry(e.target.value)}
-            />
-            <FormRow
-              type="text"
-              name="city"
-              value={city}
-              handleChange={(e) => setCity(e.target.value)}
-            />
-            <FormRow
-              type="text"
-              name="zip"
-              value={zip}
-              handleChange={(e) => setZip(e.target.value)}
-            />
-          </Row>
+
+          <FormRow
+            type="text"
+            name="country"
+            value={country}
+            handleChange={(e) => setCountry(e.target.value)}
+          />
+          <FormRow
+            type="text"
+            name="city"
+            value={city}
+            handleChange={(e) => setCity(e.target.value)}
+          />
+          <FormRow
+            type="text"
+            name="zip"
+            value={zip}
+            handleChange={(e) => setZip(e.target.value)}
+          />
+
           <button type="submit">Update</button>
         </form>
         <button onClick={logoutHandler}>

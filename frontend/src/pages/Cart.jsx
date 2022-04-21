@@ -7,6 +7,7 @@ import Order from "../components/Order";
 import OrderRegistered from "../components/OrderRegistered";
 
 import { useState, useReducer, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   orderedItems: [],
@@ -71,8 +72,8 @@ const Cart = () => {
   const [orderState, dispatch] = useReducer(reducer, initialState);
   const [step, setStep] = useState(0);
 
-  const { cart, createOrder } = useAppContext();
-
+  const { cart, createOrder, user } = useAppContext();
+  const navigate = useNavigate();
   let totalPrice = 0;
   let totalItems = 0;
   cart.forEach((i) => {
@@ -81,7 +82,6 @@ const Cart = () => {
   });
 
   const eventhandler = useCallback((data) => {
-    console.log(data.data);
     dispatch({ type: data.type, payload: data.data });
   }, []);
 
@@ -147,9 +147,16 @@ const Cart = () => {
               Total + Shipping:{" "}
               {(totalPrice + orderState.shippingPrice).toFixed(2)}€
             </h2>
-            <button onClick={proceedHandler}>
-              {step === 3 ? "Confirm order" : "Proceed to checkout"}
-            </button>
+            {user === null ? (
+              <p>
+                In Order To Checkout Please{" "}
+                <span onClick={() => navigate("/register")}>LOGIN</span>
+              </p>
+            ) : (
+              <button onClick={proceedHandler}>
+                {step === 3 ? "Confirm order" : "Proceed to checkout"}
+              </button>
+            )}
           </SideBar>
         )}
       </Container>

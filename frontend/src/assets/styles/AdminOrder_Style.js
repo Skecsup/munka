@@ -9,10 +9,8 @@ export const Container = styled.div`
       : "#FE9585"};
 
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: space-between;
-  width: 20%;
+  width: 250px;
   margin: 20px;
   border-radius: 10px 10px 0 0;
 `;
@@ -25,6 +23,10 @@ export const Orders = styled.div`
 `;
 
 export const ProductCreator = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   label {
     display: block;
     text-transform: capitalize;
@@ -52,5 +54,10 @@ export const ProductCreator = styled.div`
     cursor: pointer;
     width: 200px;
     border-radius: 10px;
+    transition: background-color 0.5s, color 0.5s;
+    &:hover {
+      background-color: #997cd6;
+      color: white;
+    }
   }
 `;

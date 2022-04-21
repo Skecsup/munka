@@ -10,7 +10,7 @@ const initialState = {
   email: "",
   password: "",
   confirmPassword: "",
-  isMember: false,
+  isMember: true,
   role: true,
 };
 

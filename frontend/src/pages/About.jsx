@@ -9,9 +9,20 @@ const About = () => {
         Želiezovce. We sell gardening tools, chemicals and everything you should
         need for your garden. Our store strives to offer our customers quality
         goods at low prices. <strong> Wisterias</strong>'s goal is customer
-        satisfaction, so we look forward to meeting you in our store. We have
-        created an E-shop for you since 2020.
+        satisfaction, so we look forward to meeting you in our store.
       </p>
+      <table>
+        <tbody>
+          <tr>
+            <th>Address</th>
+            <td>SNP 3, Želiezovce, Slovakia, 937 01</td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>0940 206 338</td>
+          </tr>
+        </tbody>
+      </table>
       <img src={pic} alt="pic" />
     </Container>
   );

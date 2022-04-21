@@ -46,7 +46,7 @@ const AppProvider = ({ children }) => {
       try {
         if (state.user.role !== null && state.user.role === 1) {
           const { data } = await axios.get("/api/orders/adminOrders");
-          console.log(data);
+
           dispatch({ type: GET_ORDERS, payload: data.orders });
         }
       } catch (error) {
@@ -72,7 +72,7 @@ const AppProvider = ({ children }) => {
   const registerUser = async (currentUser) => {
     try {
       const response = await axios.post("/api/user/register", currentUser);
-      console.log(response);
+
       const { user, token } = response.data;
       dispatch({
         type: SETUP_USER,
@@ -193,7 +193,7 @@ const AppProvider = ({ children }) => {
         order,
         status,
       });
-      console.log(data);
+
       const id = data.order._id;
 
       dispatch({ type: MANAGE_ORDERS, payload: { id, status } });

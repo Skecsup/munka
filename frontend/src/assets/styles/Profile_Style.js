@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
   h1 {
     color: #997cd6;
   }
@@ -38,14 +41,20 @@ export const Container = styled.div`
 export const Left = styled.div`
   width: 40vw;
   margin: 50px;
+  @media (max-width: 768px) {
+    margin: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 export const Right = styled.div`
+  margin: 50px;
   width: 50vw;
-`;
 
-export const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
+  @media (max-width: 768px) {
+    margin: 0;
+    width: 100vw;
+  }
 `;

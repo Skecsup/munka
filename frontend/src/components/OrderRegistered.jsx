@@ -25,21 +25,22 @@ const OrderRegistered = ({ order, dispatch }) => {
         <FaCheckCircle /> Your order was registered
       </h1>
       {order.PaymentMethod === "Crypto" && (
-        <div>
+        <div className="wrapper">
           <h4>
-            You have chose the crypto payment, below you can see the addresses,
+            You have chosen the crypto payment, below you can see the addresses,
             please make your transfer, after the funds are received the shipping
             is started.
           </h4>
-          <div>
-            <img src={btc_logo} width="100" height="100" alt="btc_logo" />
+
+          <div className="crypto">
+            <img src={btc_logo} width="50" height="50" alt="btc_logo" />
+            <strong>37ioMcn8mBUYpJ4eiqcvSCTmsJiCVh5FXN</strong>
             <img src={btc_address} width="100" height="100" alt="btc_logo" />
-            <p>37ioMcn8mBUYpJ4eiqcvSCTmsJiCVh5FXN</p>
           </div>
-          <div>
-            <img src={eth_logo} width="100" height="100" alt="eth_logo" />
+          <div className="crypto">
+            <img src={eth_logo} width="50" height="50" alt="eth_logo" />
+            <strong>0xD09A7b0bebc93BFf90f23F9953FEB6bB229Be09a</strong>
             <img src={eth_address} width="100" height="100" alt="eth_logo" />
-            <p>0xD09A7b0bebc93BFf90f23F9953FEB6bB229Be09a</p>
           </div>
           <p>
             (in the transfer notes please indicate your e-mail and name, thank
@@ -55,7 +56,7 @@ const OrderRegistered = ({ order, dispatch }) => {
             shipping is started.
           </h4>
           <div>
-            <p>SK85 1100 0000 0012 3456 7890</p>
+            <strong>SK85 1100 0000 0012 3456 7890, TATRA</strong>
             <p>
               (in the transfer notes please indicate your e-mail and name, thank
               you)
@@ -63,10 +64,15 @@ const OrderRegistered = ({ order, dispatch }) => {
           </div>
         </div>
       )}
-      {order.PaymentMethod !== "Crypto" &&
-        order.PaymentMethod !== "Transfer" && (
-          <div>You will pay when your package arrives</div>
-        )}
+      {order.PaymentMethod === "Cash_on_delivery" && (
+        <strong>You will pay when your package arrives to courier</strong>
+      )}
+      {order.PaymentMethod === "Cash" && (
+        <>
+          <strong>You can get your order at our shop.</strong>
+          <strong>(Preparing time: 24 hours)</strong>
+        </>
+      )}
       <button onClick={onClickHandler}>back to shop</button>
     </Container>
   );
