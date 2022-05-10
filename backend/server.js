@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import path from "path";
 import "express-async-errors";
 
 const app = express();
@@ -25,6 +26,12 @@ app.use("/api/seed", SeedRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/products", ProductsRouter);
 app.use("/api/orders", OrderRouter);
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/frontend/build/index.html"));
+});
 
 app.use(errorHandler);
 
