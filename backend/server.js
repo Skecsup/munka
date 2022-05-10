@@ -17,10 +17,6 @@ import OrderRouter from "./routes/orderRoutes.js";
 //middleware
 import errorHandler from "./middleware/error-handler.js";
 
-app.get("/", (req, res) => {
-  res.send("waccap fuckers");
-});
-
 app.use(express.json());
 app.use("/api/seed", SeedRouter);
 app.use("/api/user", UserRouter);
