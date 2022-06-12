@@ -24,6 +24,7 @@ export const Left = styled.div`
     width: 80%;
     @media (max-width: 1370px) {
       text-align: center;
+      font-size: 40px;
     }
   }
   p {
@@ -47,6 +48,7 @@ export const Left = styled.div`
   @media (max-width: 1370px) {
     width: 80vw;
     align-items: center;
+    margin-bottom: 2%;
   }
 `;
 export const Right = styled.div`

@@ -125,13 +125,7 @@ const Cart = () => {
             </CartItems>
           ))}
         {step === 1 && <DeliveryData forwardData={eventhandler} />}
-        {step === 2 && (
-          <ShippingPayment
-            forwardData={eventhandler}
-            payment={orderState.PaymentMethod}
-            ship={orderState.ShippingMethod}
-          />
-        )}
+        {step === 2 && <ShippingPayment forwardData={eventhandler} />}
         {step === 3 && <Order order={orderState} setStep={setStep} />}
         {step === 4 && (
           <OrderRegistered order={orderState} dispatch={dispatch} />

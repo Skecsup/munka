@@ -11,13 +11,12 @@ const initialState = {
   password: "",
   confirmPassword: "",
   isMember: true,
-  role: true,
 };
 
 const Register = () => {
   const navigate = useNavigate();
   const [state, setState] = useState(initialState);
-  const { user, isLoading, registerUser, loginUser } = useAppContext();
+  const { user, registerUser, loginUser } = useAppContext();
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -92,7 +91,7 @@ const Register = () => {
               labelText="Re-Enter Password"
             />
           )}
-          <button type="submit" className="submit" disabled={isLoading}>
+          <button type="submit" className="submit">
             {state.isMember ? "Login" : "Register"}
           </button>
           <p>

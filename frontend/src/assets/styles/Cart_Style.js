@@ -4,6 +4,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.step === 4 ? "column" : "row")};
   justify-content: space-between;
+  h1 {
+    margin-left: 20px;
+  }
   @media (max-width: 768px) {
     flex-direction: column;
   }

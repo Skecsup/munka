@@ -125,7 +125,7 @@ const ShippingPayment = ({ forwardData }) => {
                 type="radio"
                 name="shipping"
                 id="7"
-                value={"P_C_To_Address"}
+                value={"T_C_To_Address"}
               />
               <FaHome className="icon" />
               <label htmlFor="7">To Address </label>
@@ -135,7 +135,7 @@ const ShippingPayment = ({ forwardData }) => {
                 type="radio"
                 name="shipping"
                 id="8"
-                value={"P_C_To_Post"}
+                value={"T_C_To_Post"}
               />
               <FaEnvelope className="icon" />
               <label htmlFor="8">To Post</label>
@@ -156,7 +156,7 @@ const ShippingPayment = ({ forwardData }) => {
                 type="radio"
                 name="shipping"
                 id="10"
-                value={"P_C_To_Address"}
+                value={"T_C_To_Address"}
               />
               <FaHome className="icon" />
               <label htmlFor="10">To Address </label>
@@ -166,7 +166,7 @@ const ShippingPayment = ({ forwardData }) => {
                 type="radio"
                 name="shipping"
                 id="11"
-                value={"P_C_To_Post"}
+                value={"T_C_To_Post"}
               />
               <FaEnvelope className="icon" />
               <label htmlFor="11">To Post </label>

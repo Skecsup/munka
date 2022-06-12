@@ -16,7 +16,7 @@ export const Container = styled.div`
   }
 
   p {
-    text-align: justify;
+    text-align: left;
     width: 300px;
     height: 40px;
   }

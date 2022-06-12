@@ -28,6 +28,10 @@ const Admin = () => {
       price: parseFloat(price),
     };
     createProduct(prod);
+    setName("");
+    setDesc("");
+    setImage("");
+    setPrice("");
   };
 
   return (

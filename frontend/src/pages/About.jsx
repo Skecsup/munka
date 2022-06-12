@@ -1,5 +1,5 @@
 import { Container } from "../assets/styles/About_Style";
-import pic from "../assets/images/background.jpg";
+import pic from "../assets/images/about.jpg";
 const About = () => {
   return (
     <Container>

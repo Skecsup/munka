@@ -1,6 +1,7 @@
 import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 import FormRow from "../components/FormRow";
+import AdminOrder from "../components/AdminOrder";
 import { useState } from "react";
 import { Container, Left, Right } from "../assets/styles/Profile_Style";
 import { FaSignOutAlt } from "react-icons/fa";
@@ -98,9 +99,9 @@ const Profile = () => {
           <div>
             <h1>Orders</h1>
             <button onClick={displayOrders}>get orders</button>
-            {orders.map((order) => {
-              return <div key={order._id}>{order._id}</div>;
-            })}
+            {orders.map((order, index) => (
+              <AdminOrder order={order} key={index} />
+            ))}
           </div>
         )}
       </Right>

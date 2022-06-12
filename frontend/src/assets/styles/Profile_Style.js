@@ -52,6 +52,9 @@ export const Left = styled.div`
 export const Right = styled.div`
   margin: 50px;
   width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media (max-width: 768px) {
     margin: 0;
