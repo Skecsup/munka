@@ -19,7 +19,7 @@ const About = () => {
           </tr>
           <tr>
             <th>Phone</th>
-            <td>0940 206 338</td>
+            <td>+421 940 206 338</td>
           </tr>
         </tbody>
       </table>

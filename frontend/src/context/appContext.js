@@ -159,7 +159,6 @@ const AppProvider = ({ children }) => {
           Authorization: `Bearer ${state.token}`,
         },
       });
-      alert("your order was created");
     } catch (error) {
       console.log(error);
     }

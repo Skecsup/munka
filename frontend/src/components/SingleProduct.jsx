@@ -20,8 +20,8 @@ const SingleProduct = ({ product }) => {
       <strong>{product.price}€</strong>
       <button onClick={carthandler}>
         {cart.some((p) => p._id === product._id)
-          ? "Remove from cart"
-          : "Add to cart"}
+          ? "REMOVE FROM CART"
+          : "ADD TO CART"}
       </button>
     </Container>
   );

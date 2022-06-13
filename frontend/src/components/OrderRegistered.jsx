@@ -3,8 +3,10 @@ import { Container } from "../assets/styles/OrderRegistered_Style";
 import { FaCheckCircle } from "react-icons/fa";
 import btc_logo from "../assets/images/btc_logo.webp";
 import eth_logo from "../assets/images/eth_logo.svg";
+import doge_logo from "../assets/images/Dogecoin_Logo.png";
 import btc_address from "../assets/images/bitcoin.jpg";
 import eth_address from "../assets/images/etherium.jpg";
+import doge_address from "../assets/images/doge.jpg";
 import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 
@@ -41,6 +43,11 @@ const OrderRegistered = ({ order, dispatch }) => {
             <img src={eth_logo} width="50" height="50" alt="eth_logo" />
             <strong>0xD09A7b0bebc93BFf90f23F9953FEB6bB229Be09a</strong>
             <img src={eth_address} width="100" height="100" alt="eth_logo" />
+          </div>
+          <div className="crypto">
+            <img src={doge_logo} width="50" height="50" alt="eth_logo" />
+            <strong>DTpkrvLgyT8ZYuCiKMNXhWdT1z3CctHRvB</strong>
+            <img src={doge_address} width="100" height="100" alt="eth_logo" />
           </div>
           <p>
             (in the transfer notes please indicate your e-mail and name, thank
